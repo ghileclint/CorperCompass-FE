@@ -1,8 +1,13 @@
 import { useState } from "react";
-import "./App.css";
+import NavBar from "./components/NavBar";
+import Button from "./components/Button";
 
 function App() {
-  return <div>CorperCompass</div>;
+  return (
+    <>
+      <div>Corper Compass</div>
+    </>
+  );
 }
 
 export default App;

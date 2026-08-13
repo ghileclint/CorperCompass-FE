@@ -1,0 +1,30 @@
+.btnFilled {
+  background-color: var(--primary-color);
+  color: #fff;
+  border: 1px solid var(--primary-color);
+  padding: 10px 40px;
+  border-radius: 9px;
+  width: 300px;
+}
+
+.btnFilled:hover {
+  background-color: var(--secondary-color);
+  border: 1px solid var(--secondary-color);
+  color: #fff;
+}
+
+.btnOutlined {
+  background: transparent;
+  color: var(--secondary-color);
+  border: 1px solid var(--primary-color);
+  padding: 10px 40px;
+  width: 300px;
+  border-radius: 9px;
+  cursor: pointer;
+}
+
+.btnOutlined:hover {
+  background-color: var(--secondary-color);
+  border: 1px solid var(--secondary-color);
+  color: #fff;
+}
