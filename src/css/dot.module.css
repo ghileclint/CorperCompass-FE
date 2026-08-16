@@ -1,0 +1,15 @@
+.dotted {
+  width: 8px;
+  height: 8px;
+  background-color: #000;
+  border-radius: 50%;
+  display: block;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background-color: #ccc;
+  border-radius: 50%;
+  display: block;
+}

@@ -1,0 +1,45 @@
+.footingSlideContainer {
+  height: 100vh;
+}
+
+.imgContainer {
+  height: 50%;
+}
+
+.contentContainer {
+  height: 50%;
+  background-color: #fff;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.heading {
+  font-size: 20px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.text {
+  text-align: center;
+  font-size: 14px;
+  color: var(--accent-color);
+  margin-top: 10px;
+}
+
+.btnContainer {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dots {
+  display: flex;
+  gap: 5px;
+}
