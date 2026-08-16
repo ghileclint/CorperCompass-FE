@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { IoIosArrowForward } from "react-icons/io";
+import { IoIosArrowBack } from "react-icons/io";
 import styles from "../onboarding/css/onboarding.module.css";
 import SplashScreen from "../SplashScreen";
 import FootingSlide from "./FootingSlide";
@@ -57,8 +59,12 @@ const Onboarding = () => {
       >
         {slides[currentSlide]}
         <div className={styles.navigation}>
-          <button onClick={handlesBack}>Back</button>
-          <button onClick={handlesNext}>Next</button>
+          <button onClick={handlesBack}>
+            <IoIosArrowBack className={styles.icon} />
+          </button>
+          <button onClick={handlesNext}>
+            <IoIosArrowForward className={styles.icon} />
+          </button>
         </div>
         <button className={styles.skipBtn}>Skip</button>
       </div>
