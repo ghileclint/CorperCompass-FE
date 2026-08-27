@@ -1,0 +1,68 @@
+.reviewContainer {
+  width: 100%;
+  max-width: 420px;
+  height: 100vh;
+  padding: 0 20px;
+}
+
+.reviewContent {
+  padding: 10px 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.reviewHeading {
+  border: none;
+  width: fit-content;
+  padding: 3px 10px;
+  border-radius: 15px;
+  background-color: orange;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+  align-items: center;
+}
+
+.reviewIcon {
+  display: flex;
+  color: #854F0B;
+}
+
+.reviewHeading p {
+  font-size: 14px;
+  color: rgb(107, 71, 5);
+}
+
+.reviewText {
+  text-align: center;
+}
+
+.reviewText h4 {
+  margin: 10px 0;
+  font-size: 22px;
+}
+
+.reviewText p {
+  color: var(--accent-color);
+  font-size: 16px;
+}
+
+.indicator {
+  width: 100%;
+  margin: 40px 0;
+}
+
+.btn {
+  width: 100%;
+  margin: 20px 0;
+}
+
+.btn button {
+  width: 100%;
+}

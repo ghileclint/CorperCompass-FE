@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
 import { IoIosArrowBack } from "react-icons/io";
 import styles from "../onboarding/css/onboarding.module.css";
@@ -13,8 +14,6 @@ const slides = [
   <TrustedVendorsSlide />,
   <ConnectSlide />,
 ];
-
-const number = [1, 2, 3];
 
 const Onboarding = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -50,6 +49,12 @@ const Onboarding = () => {
     setTouchStart(null);
   };
 
+  const navigate = useNavigate();
+
+  const goToLogin = () => {
+    navigate("/login");
+  };
+
   return (
     <div className={styles.onboardingContainer}>
       <div
@@ -66,7 +71,9 @@ const Onboarding = () => {
             <IoIosArrowForward className={styles.icon} />
           </button>
         </div>
-        <button className={styles.skipBtn}>Skip</button>
+        <button className={styles.skipBtn} onClick={goToLogin}>
+          Skip
+        </button>
       </div>
     </div>
   );
