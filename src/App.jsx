@@ -12,7 +12,7 @@ import AllSet from "./pages/signup/AllSet";
 function App() {
   return (
     <>
-      <Onboarding />
+      {/* <Onboarding /> */}
       {/* <Input /> */}
       {/* <NyscDetails /> */}
       {/* <SetProfile /> */}
@@ -20,7 +20,7 @@ function App() {
       {/* <Review /> */}
       {/* <SplashScreen /> */}
       {/* <CreateAccount /> */}
-      {/* <AllSet /> */}
+      <AllSet />
     </>
   );
 }

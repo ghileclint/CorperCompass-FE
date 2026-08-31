@@ -1,12 +1,13 @@
 import Button from "../../components/Button";
 import styles from "../onboarding/css/trustedVendors.module.css";
 import Dot from "../../components/Dot";
+import Image from "../../assets/images/market.png";
 
 const TrustedVendorsSlide = () => {
   return (
     <div className={styles.trustedVendorContainer}>
       <div className={styles.imgContainer}>
-        <img src="" alt="stock Image" />
+        <img src={Image} alt="stock Image" />
       </div>
       <div className={styles.contentContainer}>
         <div className={styles.dots}>

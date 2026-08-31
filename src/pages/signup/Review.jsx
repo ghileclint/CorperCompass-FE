@@ -3,12 +3,14 @@ import Indicator from "../../components/ProgressIndicator";
 import styles from "../signup/css/review.module.css";
 import { VscOpenPreview } from "react-icons/vsc";
 import { FaCheck } from "react-icons/fa";
-
+import Image from "../../assets/images/verify.png";
 
 const Review = () => {
   return (
     <div className={styles.reviewContainer}>
-      <div className={styles.reviewImage}></div>
+      <div className={styles.reviewImage}>
+        <img src={Image} alt="" />
+      </div>
 
       <div className={styles.reviewContent}>
         <div className={styles.reviewHeading}>

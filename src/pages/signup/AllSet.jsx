@@ -3,11 +3,14 @@ import styles from "../signup/css/allSet.module.css";
 import popper from "../../assets/images/popper.png";
 import { IoLocation } from "react-icons/io5";
 import { BiRightArrowAlt } from "react-icons/bi";
+import Image from "../../assets/images/celebrate.png";
 
 const AllSet = () => {
   return (
     <div className={styles.allSetContainer}>
-      <div className={styles.allSetImg}></div>
+      <div className={styles.allSetImg}>
+        <img src={Image} alt="" />
+      </div>
 
       <div className={styles.allSetContent}>
         <div className={styles.allSetIcon}>

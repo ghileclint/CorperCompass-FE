@@ -1,12 +1,13 @@
 import Button from "../../components/Button";
 import styles from "../onboarding/css/connectSlide.module.css";
 import Dot from "../../components/Dot";
+import Image from "../../assets/images/corpers.png";
 
 const ConnectSlide = () => {
   return (
     <div className={styles.connectSlideContainer}>
       <div className={styles.imgContainer}>
-        <img src="" alt="stock Image" />
+        <img src={Image} alt="stock Image" />
       </div>
       <div className={styles.contentContainer}>
         <div className={styles.dots}>
