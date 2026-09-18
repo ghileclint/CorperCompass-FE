@@ -1,0 +1,49 @@
+/* src/features/explore/vendors/components/EmptySearchState.module.css */
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 64px 32px 0;
+}
+
+.iconCircle {
+  width: 64px;
+  height: 64px;
+  border-radius: 999px;
+  background: #ecfdf5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.message {
+  color: #737373;
+  font-size: 13px;
+  margin: 0 0 24px;
+  line-height: 1.5;
+}
+
+.primaryButton {
+  width: 100%;
+  background: #14532d;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  margin-bottom: 12px;
+}
+
+.linkButton {
+  background: none;
+  border: none;
+  color: #14532d;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}

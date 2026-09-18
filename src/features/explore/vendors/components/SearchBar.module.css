@@ -1,0 +1,31 @@
+/* src/features/explore/vendors/components/SearchBar.module.css */
+
+.form {
+  position: relative;
+}
+
+.icon {
+  position: absolute;
+  left: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #a3a3a3;
+}
+
+.input {
+  width: 88%;
+  margin-left:  20px;
+  border: none;
+  border-radius: 999px;
+  background: #064d2b;
+  padding: 10px 16px 10px 36px;
+  font-size: 14px;
+  color: #262626;
+  outline: none;
+  box-sizing: border-box;
+ 
+}
+
+.input::placeholder {
+  color: #a3a3a3;
+}

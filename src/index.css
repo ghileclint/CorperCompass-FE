@@ -4,6 +4,11 @@
   box-sizing: border-box;
 }
 
+html,
+body {
+  min-height: 100%;
+}
+
 :root {
   --secondary-color: #0f6e56;
   --primary-color: #085041;
@@ -24,4 +29,19 @@ body {
     "Open Sans",
     "Helvetica Neue",
     sans-serif;
+  background: #e5e5e5;
+  display: flex;
+  justify-content: center;
+}
+
+/* Mobile-first app shell: full-width on actual phones (viewport already
+   narrow, so max-width never kicks in), but constrained + centered like
+   a phone frame on tablets/desktops, matching the Figma mockups. */
+#root {
+  width: 100%;
+  max-width: 480px;
+  min-height: 100vh;
+  background: #ffffff;
+  box-shadow: 0 0 24px rgba(0, 0, 0, 0.08);
+  position: relative;
 }

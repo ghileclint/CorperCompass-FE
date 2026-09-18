@@ -1,0 +1,54 @@
+.screen {
+  min-height: 100vh;
+  background: var(--color-background, #fff);
+  font-family: var(--font-body, system-ui, sans-serif);
+  color: var(--color-text-primary, #1a1a1a);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--color-border, #eee);
+}
+
+.backButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  background: none;
+  border: none;
+  color: var(--color-brand-primary, #1f5c4d);
+  cursor: pointer;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+  color: var(--color-brand-primary, #1f5c4d);
+}
+
+.body {
+  padding: 16px;
+}
+
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  margin: 18px 0 10px;
+}
+
+.stateMessage {
+  text-align: center;
+  color: var(--color-text-muted, #767676);
+  font-size: 13px;
+  padding: 24px 0;
+}
