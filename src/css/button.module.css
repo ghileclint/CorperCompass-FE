@@ -5,6 +5,9 @@
   padding: 10px 40px;
   border-radius: 9px;
   width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .btnFilled:hover {
@@ -21,6 +24,8 @@
   width: 300px;
   border-radius: 9px;
   cursor: pointer;
+  justify-content: center;
+  align-items: center;
 }
 
 .btnOutlined:hover {
