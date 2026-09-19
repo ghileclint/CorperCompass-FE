@@ -1,0 +1,204 @@
+.appShell {
+  min-height: 100vh;
+  background: var(--white, #ffffff);
+  padding-bottom: 88px;
+}
+
+.topHeader {
+  height: 200px;
+  padding: 45px clamp(28px, 5vw, 78px);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  background: var(--primary-color);
+}
+
+.topHeader h1 {
+  margin: 0;
+  color: var(--text-color);
+  font-size: clamp(56px, 7vw, 86px);
+  line-height: 0.95;
+  font-weight: 750;
+  letter-spacing: -4px;
+}
+
+.headerFilter {
+  border: 0;
+  background: transparent;
+  color: var(--text-color);
+  font-size: 38px;
+  padding: 8px;
+}
+
+.searchSection {
+  padding: 24px clamp(28px, 5vw, 72px) 46px;
+  background: var(--primary-color);
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.12);
+  border-radius: 0 0 34px 34px;
+}
+
+.searchBox {
+  max-width: 1038px;
+  margin: 0 auto;
+  height: 130px;
+  background: var(--secondary-color);
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  gap: 34px;
+  padding: 0 70px;
+}
+
+.searchBox svg {
+  color: white;
+  flex: 0 0 auto;
+  font-size: 54px;
+}
+
+.searchBox input {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #e1f5ee;
+  font-size: clamp(28px, 3vw, 43px);
+  font-weight: 350;
+}
+
+.searchBox input::placeholder {
+  color: #e1f5ee;
+  opacity: 0.7;
+}
+
+.feedWrap {
+  width: min(1038px, calc(100% - 56px));
+  margin: 54px auto 100px;
+}
+
+.feedToolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.feedTitle {
+  font-size: 23px;
+  font-weight: 750;
+}
+
+.sortButton {
+  margin-left: 12px;
+  border: 0;
+  background: transparent;
+  color: var(--accent-color);
+  display: inline-flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.createButton {
+  border: 0;
+  border-radius: 13px;
+  background: var(--primary-color);
+  color: var(--text-color);
+  padding: 13px 19px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  transition: transform 0.2s ease, opacity 0.2s ease, background 0.2s ease;
+}
+
+.createButton:hover {
+  background: var(--secondary-color);
+  transform: translateY(-1px);
+}
+
+.feed {
+  display: flex;
+  flex-direction: column;
+}
+
+.mobileCreate {
+  display: none;
+  position: fixed;
+  right: 22px;
+  bottom: 96px;
+  width: 58px;
+  height: 58px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--primary-color);
+  color: var(--text-color);
+  font-size: 28px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+  z-index: 46;
+}
+
+.mobileCreate:hover {
+  background: var(--secondary-color);
+}
+
+@media (max-width: 700px) {
+  .topHeader {
+    height: 125px;
+    padding: 30px 22px;
+  }
+
+  .topHeader h1 {
+    font-size: 52px;
+    letter-spacing: -2px;
+  }
+
+  .headerFilter {
+    font-size: 30px;
+  }
+
+  .searchSection {
+    padding: 17px 18px 27px;
+  }
+
+  .searchBox {
+    height: 78px;
+    padding: 0 23px;
+    gap: 15px;
+    border-radius: 22px;
+  }
+
+  .searchBox svg {
+    font-size: 32px;
+  }
+
+  .searchBox input {
+    font-size: 20px;
+  }
+
+  .feedWrap {
+    width: calc(100% - 34px);
+    margin-top: 28px;
+  }
+
+  .createButton {
+    display: none;
+  }
+
+  .mobileCreate {
+    display: grid;
+    place-items: center;
+  }
+
+  .feedToolbar {
+    margin-bottom: 2px;
+  }
+}
+
+@media (max-width: 430px) {
+  .searchBox input {
+    font-size: 17px;
+  }
+
+  .searchBox {
+    gap: 10px;
+  }
+}
