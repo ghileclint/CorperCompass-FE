@@ -1,54 +1,30 @@
 import { NavLink } from "react-router-dom";
+import { FiHome, FiCompass, FiShoppingBag, FiMap, FiMail } from "react-icons/fi";
 import styles from "../css/navbar.module.css";
-import { FiHome } from "react-icons/fi";
-import { MdOutlineExplore } from "react-icons/md";
-import { PiDeskBold } from "react-icons/pi";
-import { BsFillPeopleFill } from "react-icons/bs";
-import { FaStore } from "react-icons/fa";
-import { RiCommunityFill } from "react-icons/ri";
+
+const NAV_LINKS = [
+  { to: "/", label: "Home", icon: FiHome, end: true },
+  { to: "/explore", label: "Explore", icon: FiCompass },
+  { to: "/market", label: "Market", icon: FiShoppingBag },
+  { to: "/journey", label: "Journey", icon: FiMap },
+  { to: "/inbox", label: "Inbox", icon: FiMail }
+];
 
 const NavBar = () => {
   return (
-    <div className={styles.navContainer}>
-      <p className={styles.logo}>Logo</p>
-      <nav className={styles.navbar}>
+    <nav className={styles.navContainer} aria-label="Primary">
+      {NAV_LINKS.map(({ to, label, icon: Icon, end }) => (
         <NavLink
-          to="/"
-          className={({ isActive }) => (isActive ? "styles.active" : "")}
+          key={to}
+          to={to}
+          end={end}
+          className={({ isActive }) => (isActive ? styles.active : "")}
         >
-          <FiHome className={styles.icon} />
-          Dashboard
+          <Icon className={styles.icon} aria-hidden="true" />
+          <span className={styles.label}>{label}</span>
         </NavLink>
-        <NavLink
-          to="/"
-          className={({ isActive }) => (isActive ? "styles.active" : "")}
-        >
-          <MdOutlineExplore className={styles.icon} />
-          Explore
-        </NavLink>
-        <NavLink
-          to="/"
-          className={({ isActive }) => (isActive ? "styles.active" : "")}
-        >
-          <FaStore className={styles.icon} />
-          Market
-        </NavLink>
-        <NavLink
-          to="/"
-          className={({ isActive }) => (isActive ? "styles.active" : "")}
-        >
-          <BsFillPeopleFill className={styles.icon} />
-          Social Feed
-        </NavLink>
-        <NavLink
-          to="/"
-          className={({ isActive }) => (isActive ? "styles.active" : "")}
-        >
-          <RiCommunityFill className={styles.icon} />
-          Community
-        </NavLink>
-      </nav>
-    </div>
+      ))}
+    </nav>
   );
 };
 
