@@ -33,7 +33,7 @@ src/
 │ ├── /
 │ └── /
 ├── data/
-├── features/
+├── pages/
 │ ├── onboarding/
 │ ├── user dashboard/
 │ ├── community & announcement/
@@ -48,7 +48,6 @@ src/
 │ ├── content post/
 │ └── profile settings/
 ├── hooks/
-├── pages/
 App.jsx
 index.css
 main.jsx
@@ -116,8 +115,6 @@ Open a Pull Request into the `develop` branch for review.
 - `main` — Production-ready code
 - `develop` — Integration branch
 - `feature/*` — New features
-- `bugfix/*` — Bug fixes
-- `hotfix/*` — Critical fixes
 
 ## Coding Standards
 
