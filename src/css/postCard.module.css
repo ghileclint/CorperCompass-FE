@@ -1,0 +1,324 @@
+.postCard {
+  position: relative;
+  padding: 38px 0 34px;
+  border-bottom: 4px solid #efefef;
+  animation: postIn 0.35s ease both;
+}
+
+.postCardTappable {
+  cursor: pointer;
+}
+
+.postCardTappable:hover {
+  background: #fbfdfc;
+}
+
+@keyframes postIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.postHeader {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.avatarWrap {
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.avatar {
+  width: 118px;
+  height: 118px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex: 0 0 auto;
+  display: block;
+}
+
+.avatarVerified {
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  background: var(--white, #fff);
+  border-radius: 50%;
+  color: var(--secondary-color);
+  font-size: 32px;
+  padding: 2px;
+}
+
+.author {
+  min-width: 0;
+}
+
+.authorLine {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.authorLine strong {
+  font-size: clamp(31px, 3.2vw, 47px);
+  font-weight: 500;
+  letter-spacing: -1.5px;
+  white-space: nowrap;
+}
+
+.verifiedBadge,
+.vendorBadge {
+  color: var(--secondary-color);
+  font-size: 34px;
+  stroke-width: 2.5;
+}
+
+.postTime {
+  margin-left: auto;
+  color: var(--accent-color);
+  font-size: 31px;
+}
+
+.postHeaderActions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-left: 24px;
+}
+
+.bookmarkButton {
+  border: 0;
+  background: transparent;
+  color: var(--accent-color);
+  font-size: 40px;
+  display: grid;
+  place-items: center;
+  transition: transform 0.15s ease, color 0.15s ease;
+}
+
+.bookmarkButton:hover {
+  transform: translateY(-1px);
+}
+
+.bookmarkButtonSaved {
+  color: var(--secondary-color);
+}
+
+.postMenuWrap {
+  position: relative;
+}
+
+.moreButton {
+  border: 0;
+  background: transparent;
+  color: var(--accent-color);
+  font-size: 34px;
+  padding: 6px;
+}
+
+.postMenu {
+  position: absolute;
+  right: 0;
+  top: 42px;
+  width: 150px;
+  background: var(--white, #fff);
+  border: 1px solid var(--border-gray, #e6e6e6);
+  border-radius: 14px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+  padding: 6px;
+  z-index: 5;
+}
+
+.postMenu button {
+  width: 100%;
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  padding: 10px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--dark-gray, #2b2b2b);
+  text-align: left;
+}
+
+.postMenu button:hover {
+  background: var(--light-gray, #f5f5f5);
+}
+
+.postMenuDanger {
+  color: var(--danger, #c44242);
+}
+
+.postBody {
+  margin: 28px 0 20px;
+}
+
+.postBody p {
+  margin: 0;
+  white-space: pre-line;
+  font-size: clamp(25px, 2.7vw, 39px);
+  line-height: 1.45;
+  letter-spacing: -0.7px;
+  font-weight: 400;
+}
+
+.postImageGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 25px;
+}
+
+.postImage {
+  width: 100%;
+  max-height: 620px;
+  border-radius: 24px;
+  object-fit: cover;
+  display: block;
+}
+
+.postImageGrid .postImage {
+  max-height: 420px;
+}
+
+.postActions {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  margin-top: 28px;
+}
+
+.actionButton {
+  border: 0;
+  background: transparent;
+  color: var(--secondary-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  font-size: 27px;
+}
+
+.actionButton svg {
+  font-size: 43px;
+  stroke-width: 2;
+  transition: transform 0.18s ease;
+}
+
+.actionButton:hover svg {
+  transform: scale(1.07);
+}
+
+.actionButtonLiked svg {
+  fill: var(--secondary-color);
+  animation: heartPop 0.25s ease;
+}
+
+@keyframes heartPop {
+  50% {
+    transform: scale(1.25);
+  }
+}
+
+.heartFilled {
+  fill: var(--secondary-color);
+}
+
+.shareWrap {
+  position: relative;
+}
+
+@media (max-width: 700px) {
+  .postCard {
+    padding: 27px 0 28px;
+  }
+
+  .postHeader {
+    gap: 13px;
+  }
+
+  .avatar {
+    width: 65px;
+    height: 65px;
+  }
+
+  .avatarVerified {
+    font-size: 20px;
+  }
+
+  .authorLine {
+    gap: 6px;
+  }
+
+  .authorLine strong {
+    font-size: 24px;
+    letter-spacing: -0.5px;
+  }
+
+  .verifiedBadge,
+  .vendorBadge {
+    font-size: 21px;
+  }
+
+  .postTime {
+    font-size: 18px;
+  }
+
+  .postHeaderActions {
+    gap: 10px;
+    margin-left: 10px;
+  }
+
+  .bookmarkButton {
+    font-size: 26px;
+  }
+
+  .moreButton {
+    font-size: 24px;
+  }
+
+  .postBody {
+    margin-top: 20px;
+  }
+
+  .postBody p {
+    font-size: 20px;
+    line-height: 1.45;
+    letter-spacing: -0.25px;
+  }
+
+  .postActions {
+    margin-top: 20px;
+  }
+
+  .actionButton {
+    font-size: 18px;
+    gap: 7px;
+  }
+
+  .actionButton svg {
+    font-size: 28px;
+  }
+
+  .postImage {
+    border-radius: 17px;
+    max-height: 420px;
+  }
+}
+
+@media (max-width: 430px) {
+  .authorLine strong {
+    font-size: 21px;
+  }
+
+  .postTime {
+    font-size: 16px;
+  }
+}
