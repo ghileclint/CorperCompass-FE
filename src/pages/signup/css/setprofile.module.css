@@ -1,0 +1,106 @@
+.setProfileContainer {
+  width: 100%;
+  max-width: 420px;
+  height: 100vh;
+  padding: 20px 10px;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+}
+
+.heading {
+  margin: 10px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.heading p {
+  color: var(--accent-color);
+  font-size: 14px;
+}
+
+.photoSection {
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.photoContainer {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #eef5ff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.photoContainer span {
+  color: var(--secondary-color);
+}
+
+.photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.fileInput {
+  display: none;
+}
+
+.addPhoto {
+  color: var(--secondary-color);
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.textArea {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.textArea textarea {
+  padding: 10px;
+  border-radius: 6px;
+  resize: none;
+  height: 60px;
+}
+
+.textIcon {
+  font-size: 22px;
+}
+
+.textContainer {
+  display: flex;
+  gap: 10px;
+  margin: 20px 0;
+  padding: 10px;
+  background-color: rgb(170, 243, 194);
+  color: var(--primary-color);
+  border-radius: 6px;
+}
+
+.textContainer p {
+  width: fit-content;
+}
+
+.btnContainer button {
+  margin-top: 20px;
+  width: 100%;
+}
