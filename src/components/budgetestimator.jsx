@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   FiArrowLeft,
@@ -13,61 +13,49 @@ import "../css/budgetEstimator.css";
 const BudgetEstimator = () => {
   const navigate = useNavigate();
   const [isEditingBudget, setIsEditingBudget] = useState(false);
-  const [budgetAmount, setBudgetAmount] = useState(50000);
-  const [editedBudget, setEditedBudget] = useState(50000);
+  const [budgetAmount, setBudgetAmount] = useState("")
+  const [editedBudget, setEditedBudget] = useState("");
+ 
 
   const [monthlyBudget, setMonthlyBudget] = useState(50000);
+  const[budgetInput, setBudgetInput] = useState(() => {
+    const savedBudget = localStorage.getItem("budgetAmount");
+    return savedBudget ? parseFloat(savedBudget) : 50000;
+  });
+  const [editedBudgetInput, setEditedBudgetInput] = useState(budgetInput);  
+  const [isEditingBudgetInput, setIsEditingBudgetInput] = useState(false);
+  const [showExpenseForm, setShowExpenseForm] = useState(false);
 
-  const [expenses, setExpenses] = useState([
-    {
-      id: 1,
-      name: "Transportation",
-      amount: 4200,
-      category: "Transport",
-    },
-    {
-      id: 2,
-      name: "Feeding",
-      amount: 9600,
-      category: "Food",
-    },
-    {
-      id: 3,
-      name: "Data & Airtime",
-      amount: 3500,
-      category: "Utilities",
-    },
-    {
-      id: 4,
-      name: "Laundry",
-      amount: 2500,
-      category: "Personal",
-    },
-  ]);
-
-  const [showExpenseForm, setShowExpenseForm] =
-    useState(false);
-
-  const [newExpense, setNewExpense] = useState({
+  const [expenses, setExpenses] = useState( () => {
+    try{
+      const savedExpenses = localStorage.getItem("expenses");
+      if (!savedExpenses) {
+        return [];
+      }
+      const parsedExpenses = JSON.parse(savedExpenses);
+      return Array.isArray(parsedExpenses) ? parsedExpenses : [];
+    } catch (error) {
+      console.error("Error parsing saved expenses:", error);
+      return [];
+    }
+  });
+const [newExpense, setNewExpense] = useState({
     name: "",
     amount: "",
     category: "Food",
   });
 
-
-  const totalSpent = useMemo(() => {
-    return expenses.reduce(
-      (total, expense) => total + Number(expense.amount),
-      0
-    );
-  }, [expenses]);
+const totalSpent = expenses.reduce(
+    (total, expense) => total + Number(expense.amount || 0),
+    0
+  );
 
 
-  const remaining = monthlyBudget - totalSpent;
+  const remaining = budgetAmount - totalSpent;
 
   const percentageUsed =
-    monthlyBudget > 0
-      ? Math.round((totalSpent / monthlyBudget) * 100)
+    budgetAmount > 0
+      ? Math.round((totalSpent / budgetAmount) * 100)
       : 0;
 
 
@@ -101,19 +89,26 @@ const BudgetEstimator = () => {
 
   const deleteExpense = (id) => {
 
-    setExpenses(
-      expenses.filter(
-        (expense) => expense.id !== id
-      )
-    );
-
+   const updatedExpenses = expenses.filter((expense) => expense.id !== id);
+   setExpenses(updatedExpenses);
+   localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
+   window.dispatchEvent(new Event("expensesUpdated"));
   };
+
+  useEffect(() => {
+    const savedBudget = localStorage.getItem("budgetAmount");
+    if(savedBudget) {
+      setBudgetAmount(Number(savedBudget));
+    }
+
+  }, []);
+
 
 
   return (
     <main className="budget-page">
 
-      /* ================= HEADER ================= */
+     {/* ----------Header---------- */}
 
       <header className="budget-page-header">
 
@@ -160,7 +155,7 @@ const BudgetEstimator = () => {
           </p>
 
           <h2>
-            ₦{monthlyBudget.toLocaleString()}
+            ₦{budgetAmount?.toLocaleString() || "0"}
           </h2>
 
           <button className="edit-budget" 
@@ -184,7 +179,7 @@ const BudgetEstimator = () => {
             </span>
 
             <strong>
-              ₦{totalSpent.toLocaleString()}
+              ₦{totalSpent?.toLocaleString() || "0"}
             </strong>
           </div>
 
@@ -195,7 +190,7 @@ const BudgetEstimator = () => {
             </span>
 
             <strong className="remaining-money">
-              ₦{remaining.toLocaleString()}
+              ₦{remaining?.toLocaleString() || "0"}
             </strong>
           </div>
 
@@ -336,7 +331,7 @@ const BudgetEstimator = () => {
           </div>
 
           <div className="expense-total">
-            ₦{totalSpent.toLocaleString()}
+            ₦{totalSpent?.toLocaleString() || "0"}
           </div>
 
         </div>
@@ -370,7 +365,7 @@ const BudgetEstimator = () => {
 
 
               <strong className="expense-amount">
-                -₦{expense.amount.toLocaleString()}
+                -₦{expense.amount?.toLocaleString() || "0"}
               </strong>
 
 
@@ -493,9 +488,10 @@ const BudgetEstimator = () => {
                   })
                 }
               >
-                <option>Food</option>
-                <option>Transport</option>
-                <option>Utilities</option>
+                <option>🍲 Food</option>
+                <option>🚌 Transport</option>
+                <option>📱 Data & Airtime</option>
+                <option>🛠 Utilities</option>
                 <option>Personal</option>
                 <option>Others</option>
               </select>
@@ -504,8 +500,31 @@ const BudgetEstimator = () => {
 
 
             <button
-              type="submit"
+              type="button"
               className="save-expense"
+              onClick = {() => {
+                if (!newExpense.name || !newExpense.amount) {
+                  alert("Please fill in all fields.");
+                  return;
+                }
+                const expenseToAdd = {
+
+                  id:  Date.now(),
+                  name: newExpense.name,
+                  amount: Number(newExpense.amount),  
+                  category: newExpense.category,
+                };
+                const updatedExpenses = [...expenses, expenseToAdd];
+                setExpenses(updatedExpenses);
+                localStorage.setItem("expenses", JSON.stringify(updatedExpenses));
+                window.dispatchEvent(new Event ("expensesUpdated"));
+                setNewExpense({
+                  name: "",
+                  amount: "",
+                  category: "Food",
+                });
+                setShowExpenseForm(false);
+              }}
             >
               Save expense
             </button>
@@ -592,17 +611,27 @@ const BudgetEstimator = () => {
           type="button"
           className="budget-save-btn"
           onClick={() => {
-
-            if (
-              !editedBudget ||
-              Number(editedBudget) <= 0
-            ) {
+            const newBudget = parseFloat(editedBudget);
+            if (!newBudget || newBudget <= 0) {
               alert("Please enter a valid budget.");
               return;
             }
 
-            setBudgetAmount(Number(editedBudget));
+            setBudgetAmount(newBudget);
+            localStorage.setItem("budgetAmount", String(newBudget));
+            
             setIsEditingBudget(false);
+
+            // if (
+            //   !editedBudget ||
+            //   Number(editedBudget) <= 0
+            // ) {
+            //   alert("Please enter a valid budget.");
+            //   return;
+            // }
+
+            // setBudgetAmount(Number(editedBudget));
+            // setIsEditingBudget(false);
 
           }}
         >

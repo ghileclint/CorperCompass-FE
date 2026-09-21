@@ -7,10 +7,14 @@ import { BsFillPeopleFill } from "react-icons/bs";
 import { FaStore } from "react-icons/fa";
 import { RiCommunityFill } from "react-icons/ri";
 import {FiCreditCard} from "react-icons/fi";
+import { useState } from "react";
 
 import logo from "../logo-img/logo.png";
 
 const NavBar = () => {
+
+  const [showUserText, setShowUserText] = useState(false);
+  
   return (
     <div className={styles.navContainer}>
 
@@ -99,22 +103,31 @@ const NavBar = () => {
 
           </span>
           </div>
-        <div className={styles.avatar}>
+        <div className={styles.avatar} onclick={() => setShowUserText((prev) => !prev)}
+          aria-label="Toggle user information">
           AO
         </div>
-
-        <div className={styles.userText}>
-          <strong>
-            Angela Okorie
-          </strong>
-          <span>
-            NYSC Member, Oyo State
-          </span>
-
-        </div>
-
         
 
+        {showUserText && (
+          <div className={styles.userText}>
+            <strong>
+              Angela Okorie
+            </strong>
+            <span>
+              NYSC Member, Oyo State
+            </span>
+          </div>
+        )}
+        <div className={styles.userText}>
+            <strong>
+              Angela Okorie
+            </strong>
+            <span>
+              NYSC Member, Oyo State
+            </span>
+          </div>
+        
 
 
       </div>

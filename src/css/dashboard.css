@@ -280,6 +280,7 @@
   display: flex;
   align-items: center;
   gap: 5px;
+  cursor: pointer;
 }
 
 .small-finance-card {
@@ -339,6 +340,7 @@
   background: white;
   border: 1px solid #e4eeeb;
   border-radius: 18px;
+  padding: 20px;
 }
 
 .upcoming-item,
@@ -405,21 +407,140 @@
 
 /* ================= TRANSACTIONS ================= */
 
-.transaction-icon.food {
-  background: #fff0eb;
+.transaction{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid #edf1ef;
+ 
+
+}
+.transaction:last-child{
+  border-bottom: none;
+}
+.transaction-info{
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  padding: 10px ;
+}
+.transaction-info strong{
+  color: var(--primary-color);
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.transaction-info span{
+  color: #8a9692;
+  font-size: 12px;
+  font-weight: 500;
+}
+.transaction-amount{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  color: #c94b4b;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  padding: 15px;
+}
+.transaction-amount span{
+  color: #8a9692;
+  font-weight: 500;
+}
+.no-transactions{
+  margin: 0;
+  padding: 24px;
+  text-align: center;
+  color: #8a9692;
+  font-size: 14px;
+
+}
+.transactions-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 3000;
 }
 
-.transaction-icon.transport {
-  background: #e9f7f3;
+.transactions-modal {
+  width: 100%;
+  max-width: 600px;
+  max-height: 85vh;
+  background: #fff;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
 }
 
-.transaction-icon.data {
-  background: #f4f0ff;
+.transactions-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #edf1ef;
 }
 
-.expense {
-  color: #263e39;
+.transactions-modal-header h2 {
+  margin: 0;
+  color: var(--primary-color);
+  font-size: 20px;
 }
+
+.transactions-modal-header p {
+  margin: 5px 0 0;
+  color: #8a9692;
+  font-size: 13px;
+}
+
+.transactions-modal-close {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 10px;
+  background: #eef7f4;
+  color: var(--primary-color);
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.all-transactions-list {
+  overflow-y: auto;
+  margin-top: 8px;
+}
+
+.transactions-modal-footer-btn {
+  width: 100%;
+  margin-top: 20px;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  background: var(--primary-color);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.transactions-modal-footer-btn:hover {
+  background: var(--secondary-color);
+}
+
+
 
 
 /* ================= QUICK ACTIONS ================= */
@@ -626,6 +747,7 @@
   justify-content: center;
   align-items: center;
   gap: 5px;
+  cursor: pointer;
 }
 /* =========================================
    DASHBOARD INTERACTIVE MODALS
@@ -670,23 +792,98 @@
   margin-bottom: 25px;
 }
 
-.dashboard-modal-header span {
-  font-size: 10px;
-
-  font-weight: 700;
-
-  letter-spacing: 1px;
-
-  color: #8b9894;
+.dashboard-modal-header button {
+  font-size: 25px;
+  color: var(--primary-color);
+  width: 38px;
+  height: 38px;
+  border: none;
+  border-radius: 10px;
+  background: #eef7f4;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.dashboard-modal-header button:hover {
+  background: var(--secondary-color);
+  color: #ffffff;
 }
 
 .dashboard-modal-header h2 {
-  margin: 6px 0 0;
+  margin: 0;
+  color: var(--primary-color);
+  font-weight: 700;
 
-  color: #173d37;
-
-  font-size: 24px;
+  font-size: 20px;
 }
+
+.calendar-weekdays{
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  margin-bottom: 8px;
+}
+.calendar-weekdays span {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: #7b8985;
+}
+.calendar-grid{
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+}
+.calendar-empty, .calendar-day {
+  width: 100%;
+  aspect-ratio: 1;
+}
+.calendar-day{
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  color: #263632;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.calendar-day:hover{
+  background: #eef7f4;
+  color: var(--primary-color);
+}
+.calendar-day.today:hover{
+  background: var(--primary-color);
+  color: #ffffff;
+}
+.dashboard-modal-close{
+  width: 100%;
+  margin-top: 24px;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 10px;
+  background: var(--primary-color);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.dashboard-modal-close:hover{
+  background: var(--secondary-color);
+}
+.calendar-day.today{
+  background: var(--secondary-color);
+  color: #ffffff;
+  font-weight: 700;
+  border-radius: 10px;
+}
+
+
+
+
 
 .dashboard-close-btn {
   width: 36px;
@@ -886,6 +1083,7 @@
   .dashboard-header {
     flex-direction: column;
     align-items: flex-start;
+    margin-top: 70px;
   }
 
   .dashboard-header h1 {
@@ -970,6 +1168,48 @@
   .calendar-date {
     height: 36px;
   }
+  .dashboard-modal-overlay{
+    padding: 16px;
+  }
+  .dashboard-modal{
+    max-width: 100%;
+    padding: 20px;
+    border-radius: 18px;
+  }
+  .dashboard-modal-header h2{
+    font-size: 18px;
+  }
+  .calendar-weekdays span{
+    font-size: 11px;
+  }
+  .calendar-day{
+    font-size: 13px;
+  }
+  .transaction{
+    padding: 12px 0;
+    gap: 10px;
+  }
+  .transaction-info strong{
+    font-size: 13px;
+  }
+  .transaction-info span{
+    font-size: 11px;
+  }
+  .transaction-amount{
+    font-size: 13px;
+  }
+  .transactions-modal-overlay {
+    padding: 12px;
+  }
+  .transactions-modal {
+    max-height: 90vh;
+    padding: 18px;
+    border-radius: 18px;
+  }
+  .transactions-modal-header h2{
+    font-size: 18px;
+  }
+  
 
 }
 

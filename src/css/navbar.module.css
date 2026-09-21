@@ -162,10 +162,39 @@
 /* --------mobile------------ */
 @media (max-width: 600px) {
   .logoContainer {
-    display: none;
+    display: flex !important;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 64px;
+    padding-left: 16px;
+    box-sizing: border-box;
+    z-index: 1100;
+    visibility: visible !important;
+    opacity: 1 !important;
+    background: #ffffff;
+    border-bottom: 1px solid var(--accent-color);
+
   }
   .userArea{
-    display: none;
+    display: flex !important;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 64px;
+    padding-right: 16px;
+    box-sizing: border-box;
+    z-index: 1100;
+    visibility: visible !important;
+    opacity: 1 !important;
+    justify-content: flex-end;
+    gap: 10px;
+    background: #ffffff;
+    border-bottom: 1px solid var(--accent-color);
   }
   
   .navContainer {
@@ -201,6 +230,28 @@
   .icon{
     font-size: 18px;
   }
+.notification{
+  position: relative !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.avatar{
+  flex-shrink: 0;
+  display:flex;
+  align-items: center;  
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: var(--primary-color);
+  color: #fff;
+  font-weight: 700 ;
+  cursor: pointer;
+}
+
 }
 
 @media (max-width: 1050px){
@@ -211,7 +262,8 @@
     min-width: auto;
   }
   .logoText{
-    display: none;
+    display: flex;
+    z-index: 100;
   }
   .navbar{
     gap: 16px;
@@ -222,4 +274,6 @@
   .userText{
     display: none;
   }
+
+
 }

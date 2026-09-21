@@ -1,4 +1,5 @@
-import React, {useState} from "react";
+import React, {useMemo, useEffect, useState} from "react";
+
 
 import {
   FiArrowUpRight,
@@ -25,10 +26,157 @@ const Dashboard = () => {
   useState(false);
   const [showDateForm, setShowDateForm] = 
   useState(false);
-  const [showBudget, setShowBudget] = 
-  useState(false);
+  // const [showBudget, setShowBudget] = 
+  // useState(false);
+  const [serviceStartDate, setServiceStartDate] = useState(
+    localStorage.getItem("serviceStartDate") || ""
+  );
   
+  const [startDateInput, setStartDateInput] = useState(
+    localStorage.getItem("serviceStartDate") || ""
+  );
+
+  const [endDateInput, setEndDateInput] = useState("");
+  const [budgetAmount, setBudgetAmount] = useState(()=> {
+    const savedBudget = localStorage.getItem("budgetAmount");
+    return savedBudget ? parseFloat(savedBudget) : 50000;
+  });
   
+  const [showAllTransactions, setShowAllTransactions] = useState(false);
+
+  const [expenses, setExpenses] = useState( () => {
+     const savedExpenses = localStorage.getItem("expenses");
+
+      try{
+       
+        // if (!savedExpenses) {
+        //   return [];
+        // }
+        const parsedExpenses = savedExpenses ? JSON.parse(savedExpenses) : [];
+        return Array.isArray(parsedExpenses) ? parsedExpenses : [];
+      } catch (error) {
+        console.error("Error parsing saved expenses:", error);
+        return [];
+      }
+    });
+
+    const recentTransactions = [...expenses].sort((a, b) => Number(b.id || 0) - Number(a.id || 0) ).slice(0, 3);
+    useEffect(() => {
+      const loadExpenses = () => {
+        const savedExpenses =localStorage.getItem("expenses");
+        try {
+          const parsedExpenses = savedExpenses ? JSON.parse(savedExpenses) : [];
+
+          setExpenses(Array.isArray(parsedExpenses) ? parsedExpenses : []);
+        } catch {
+          setExpenses([]);
+        }
+      };
+      loadExpenses();
+
+      window.addEventListener("expensesUpdated", loadExpenses);
+
+      return () => {
+        window.removeEventListener("expensesUpdated", loadExpenses);
+      };
+    }, [] );
+
+  const [newExpense, setNewExpense] = useState({
+      name: "",
+      amount: "",
+      category: "Food",
+    });
+  
+  const totalSpent = expenses.reduce(
+      (total, expense) => total + Number(expense.amount || 0),
+      0
+    );
+  
+    
+   const percentageUsed =
+    budgetAmount > 0
+      ? Math.round((totalSpent / budgetAmount) * 100)
+      : 0;
+// ----------------setting current date-----------
+
+
+const TOTAL_SERVICE_DAYS = 365;
+
+      const [today, setToday] = useState(new Date());
+
+      useEffect (() => {
+        const updateDate = () => {
+          setToday(new Date());
+        };
+        updateDate(); // Initial call to set the date immediately
+
+        const timer = setInterval(updateDate, 60000); // Update every minute
+        return () => clearInterval(timer);
+      }, []);
+
+      const getStartDate = () => {
+        if (!serviceStartDate) return null;
+        const [year, month, day] = serviceStartDate.split("-").map(Number);
+        if (!year || !month || !day) return null;
+        const date = new Date(year, month - 1, day);
+        return isNaN(date.getTime()) ? null : date;
+      };
+      const startDate = getStartDate();
+      const daysElapsed = startDate ? Math.floor((today.setHours(0, 0, 0, 0) - 
+    new Date(startDate).setHours(0, 0, 0, 0)) / (1000 * 60 * 60 * 24)) : 0;
+
+      const formattedDate = today.toLocaleDateString("en-US" , {
+        weekday: "long",
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+      });
+
+// ----------calculating the completion date ------------
+
+     const getCompletionDate = (startDate) => {
+      if (!startDate) return null;
+      const [year, month, day] = startDate.split("-").map(Number);
+      if(!year || !month || !day) return null;
+      const date = new Date(year, month - 1, day);
+      if(isNaN(date.getTime())) return null;
+      date.setDate(date.getDate() + 365);
+      return date;
+     }
+
+     const completionDate = getCompletionDate(serviceStartDate);
+
+     const daysRemaining = Math.max(0, TOTAL_SERVICE_DAYS - daysElapsed);
+     const percentageComplete = Math.min(100, Math.round((daysElapsed / TOTAL_SERVICE_DAYS) * 100));
+
+     const [calendarDate, setCalendarDate] = useState(new Date());
+
+     const calendarYear = calendarDate.getFullYear();
+     const calendarMonth = calendarDate.getMonth();
+
+     const firstDay = new Date(
+      calendarYear,
+      calendarMonth,
+      1
+     ).getDay();
+
+     const daysInMonth = new Date(
+      calendarYear,
+      calendarMonth + 1, 0
+     ).getDate();
+
+     const todayDate = new Date();
+     const isToday =(day) => {
+      const now = new Date();
+      return(
+        day === now.getDate() && calendarDate.getMonth() === now.getMonth() && calendarDate.getFullYear() === now.getFullYear()
+      )
+     }
+    const hour = new Date().getHours();
+    const greetings = hour < 12 ? "Good morning" : hour < 17 ? "Good Afternoon" : "Good evening";
+
+
+
   return (
     <main className="dashboard-container">
 
@@ -38,11 +186,11 @@ const Dashboard = () => {
 
         <div>
           <p className="dashboard-date">
-            TUESDAY · SEPTEMBER 1, 2026
+            {formattedDate}
           </p>
 
           <h1>
-            Good afternoon, Angela 👋
+            {greetings}, Angela 👋
           </h1>
 
           <p className="dashboard-subtitle">
@@ -84,11 +232,11 @@ const Dashboard = () => {
             <p>SERVICE YEAR</p>
 
             <h3>
-              Day 184 of 365
+              {daysRemaining} of 365
             </h3>
 
             <span>
-              181 days to your passing-out milestone
+              {daysRemaining} days to your passing-out milestone
             </span>
           </div>
 
@@ -97,23 +245,31 @@ const Dashboard = () => {
 
         <div className="service-progress-wrapper">
 
-          <div className="service-progress">
-            <span></span>
+          <div className= "service-progress">
+            <span style={{width: `${percentageComplete}%`}}></span>
+
           </div>
 
-          <p>50% complete</p>
+          <p> {percentageComplete.toFixed(0)}% Complete</p>
 
         </div>
 
 
         <button className="set-date-btn" 
-        onClick={()=> setShowDateForm(true)}
+        onClick={() => {
+          setStartDateInput(
+            localStorage.getItem("serviceStartDate") || ""
+          );
+          setShowDateForm(true)
+        } }
         >
           Set dates
           <FiChevronRight />
         </button>
 
       </section>
+      
+    
 
 
       {/* ================= MAIN GRID ================= */}
@@ -163,16 +319,16 @@ const Dashboard = () => {
                 </div>
 
                 <h3>
-                  ₦50,000
+                  ₦{budgetAmount.toLocaleString()}
                 </h3>
 
                 <div className="budget-numbers">
                   <span>
-                    ₦28,650 spent
+                    Total spent
                   </span>
 
                   <strong>
-                    ₦21,350 left
+                     ₦{totalSpent.toLocaleString()}
                   </strong>
                 </div>
 
@@ -181,19 +337,23 @@ const Dashboard = () => {
                 </div>
 
                 <div className="budget-progress-info">
-                  <span>57% used</span>
+                  <span>{percentageUsed}% used</span>
+
 
                   <span>
-                    Recommended daily limit ₦712
+                    Recommended daily limit ₦{(budgetAmount / 30).toLocaleString()}
                   </span>
                 </div>
 
-                <button className="manage-budget-btn"
-                onClick={()=> setShowBudget(true)}
+                {/* <button className="manage-budget-btn"
+                onClick={()=> {
+                  setEditedBudget(budgetAmount);
+                  setShowBudget(true);
+                } }
                 >
                   Manage budget
                   <FiChevronRight />
-                </button>
+                </button> */}
 
               </div>
 
@@ -264,7 +424,10 @@ const Dashboard = () => {
               </div>
 
               <button className="view-calendar-btn"
-              onClick={() => setShowCalendar(true)}
+              onClick={() => {
+                setCalendarDate(new Date());
+                setShowCalendar(true);
+              } }
               >
                 View calendar
                 <FiArrowUpRight />
@@ -373,7 +536,9 @@ const Dashboard = () => {
                 </h2>
               </div>
 
-              <button className="view-calendar-btn">
+              <button className="view-calendar-btn" 
+              onClick={() => setShowAllTransactions(true)}
+              >
                 View all
                 <FiArrowUpRight />
               </button>
@@ -381,66 +546,48 @@ const Dashboard = () => {
             </div>
 
 
-            <div className="transactions-card">
+            
 
-              <div className="transaction-item">
+              
+                {recentTransactions.length > 0 ? (
+  recentTransactions.map((expense) => (
+<div className="transaction" key={expense.id}>
+      <div className="transaction-info">
+        <strong>{expense.name}</strong>
+        <span>
+          {new Date(Number(expense.id)).toLocaleDateString("en-US", {
+            month: "short",
+            day: "numeric",
+            year: "numeric"
+          })}
+        </span>
+       
+      </div>
 
-                <div className="transaction-icon food">
-                  🍲
-                </div>
+      <div className="transaction-amount">
+        -₦{Number(expense.amount).toLocaleString()}
+         <span>
+          {new Date(Number(expense.id)).toLocaleTimeString("en-US", {
+            hour: "numeric",
+            minute: "2-digit",
+          })}
+        </span>
+      </div>
+    </div>
+    
 
-                <div>
-                  <strong>Food</strong>
-                  <span>Yesterday · 2:30 PM</span>
-                </div>
+    
+  ))
+) : (
+  <p className="no-transactions">
+    No recent transactions
+  </p>
+)}
+         
 
-                <strong className="expense">
-                  -₦3,400
-                </strong>
+   </section>
 
-              </div>
-
-
-              <div className="transaction-item">
-
-                <div className="transaction-icon transport">
-                  🚌
-                </div>
-
-                <div>
-                  <strong>Transportation</strong>
-                  <span>Yesterday · 8:10 AM</span>
-                </div>
-
-                <strong className="expense">
-                  -₦1,800
-                </strong>
-
-              </div>
-
-
-              <div className="transaction-item">
-
-                <div className="transaction-icon data">
-                  📱
-                </div>
-
-                <div>
-                  <strong>Data & Airtime</strong>
-                  <span>Monday · 11:20 AM</span>
-                </div>
-
-                <strong className="expense">
-                  -₦3,500
-                </strong>
-
-              </div>
-
-            </div>
-
-          </section>
-
-        </div>
+    </div>
 
 
         {/* RIGHT COLUMN */}
@@ -746,73 +893,93 @@ const Dashboard = () => {
         </div>
       )}
 
-      {showCalendar && (
-  <div
-    className="dashboard-modal-overlay"
-    onClick={() => setShowCalendar(false)}
-  >
-    <div
-      className="dashboard-modal calendar-modal"
-      onClick={(e) => e.stopPropagation()}
-    >
+     {showCalendar && (
+  <div className="dashboard-modal-overlay">
+    <div className="dashboard-modal">
 
       <div className="dashboard-modal-header">
-
-        <div>
-          <span>YOUR CALENDAR</span>
-          <h2>September 2026</h2>
-        </div>
-
         <button
-          onClick={() => setShowCalendar(false)}
-          className="dashboard-close-btn"
+          type="button"
+          onClick={() =>
+            setCalendarDate(
+              new Date(calendarYear, calendarMonth - 1, 1)
+            )
+          }
         >
-          ×
+          ‹
         </button>
 
+        <h2>
+          {calendarDate.toLocaleDateString("en-US", {
+            month: "long",
+            year: "numeric",
+          })}
+        </h2>
+
+        <button
+          type="button"
+          onClick={() =>
+            setCalendarDate(
+              new Date(calendarYear, calendarMonth + 1, 1)
+            )
+          }
+        >
+          ›
+        </button>
       </div>
 
-      <div className="current-dashboard-date">
-        TUESDAY, SEPTEMBER 1, 2026
+      <div className="calendar-weekdays">
+        <span>Sun</span>
+        <span>Mon</span>
+        <span>Tue</span>
+        <span>Wed</span>
+        <span>Thu</span>
+        <span>Fri</span>
+        <span>Sat</span>
       </div>
 
-      <div className="simple-calendar">
-
-        {[
-          "Sun",
-          "Mon",
-          "Tue",
-          "Wed",
-          "Thu",
-          "Fri",
-          "Sat"
-        ].map((day) => (
-          <strong key={day}>
-            {day}
-          </strong>
+      <div className="calendar-grid">
+        {Array.from({ length: firstDay }).map((_, index) => (
+          <div
+            key={`empty-${index}`}
+            className="calendar-empty"
+          />
         ))}
 
-        {Array.from(
-          { length: 31 },
-          (_, i) => i + 1
-        ).map((day) => (
-          <button
-            key={day}
-            className={
-              day === 19
-                ? "calendar-date active"
-                : "calendar-date"
-            }
-          >
-            {day}
-          </button>
-        ))}
+        {Array.from({ length: daysInMonth }).map((_, index) => {
+          const day = index + 1;
 
+          return (
+            <button
+              key={day}
+              type="button"
+              className={`calendar-day ${
+                isToday(day)
+                  ? "calendar-day today"
+                  : "calendar-day"
+              }`}
+            >
+              {day}
+            </button>
+          );
+        })}
       </div>
+
+      <button
+        type="button"
+        className="dashboard-modal-close"
+        onClick={() => setShowCalendar(false)}
+      >
+        Close
+      </button>
 
     </div>
   </div>
 )}
+     
+
+
+
 
 {showDateForm && (
   <div
@@ -849,19 +1016,34 @@ const Dashboard = () => {
       >
 
         <label>
-          Service year start
+          Service start date
 
-          <input type="date" />
+          <input type="date" value={startDateInput} onChange={(e) => setStartDateInput(e.target.value)} />
         </label>
 
         <label>
           Expected completion date
 
-          <input type="date" />
+          <input type="date" value={endDateInput} onChange={(e) => setEndDateInput(e.target.value)} />
         </label>
 
         <button
-          type="submit"
+          type="button" onClick={()=> {
+            if (!startDateInput) {
+              alert("Please select your service start date.");
+              return;
+            }
+            // if (new Date(endDateInput) < new Date(startDateInput)){
+            //   alert("End date cannot be before start date.");
+            //   return;
+            // }
+            setServiceStartDate(startDateInput);
+            localStorage.setItem("serviceStartDate", startDateInput);
+            
+            // setServiceEndDate(endDateInput);
+            // localStorage.setItem("serviceEndDate", endDateInput);
+            setShowDateForm(false);
+          }}
           className="dashboard-modal-submit"
         >
           Save dates
@@ -874,67 +1056,89 @@ const Dashboard = () => {
   </div>
 )}
 
-{showBudget && (
-  <div
-    className="dashboard-modal-overlay"
-    onClick={() => setShowBudget(false)}
-  >
+        {showAllTransactions && (
+  <div className="transactions-modal-overlay">
+    <div className="transactions-modal">
 
-    <div
-      className="dashboard-modal"
-      onClick={(e) => e.stopPropagation()}
-    >
-
-      <div className="dashboard-modal-header">
-
+      <div className="transactions-modal-header">
         <div>
-          <span>YOUR MONEY</span>
-          <h2>Manage budget</h2>
+          <h2>All Transactions</h2>
+          <p>All your saved expenses</p>
         </div>
 
         <button
-          onClick={() => setShowBudget(false)}
-          className="dashboard-close-btn"
+          type="button"
+          className="transactions-modal-close"
+          onClick={() => setShowAllTransactions(false)}
+          aria-label="Close transactions"
         >
           ×
         </button>
-
       </div>
 
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
+      <div className="all-transactions-list">
+        {expenses.length > 0 ? (
+          [...expenses]
+            .sort(
+              (a, b) =>
+                Number(b.id || 0) - Number(a.id || 0)
+            )
+            .map((expense) => (
+              <div
+                className="transaction"
+                key={expense.id}
+              >
+                <div className="transaction-info">
+                  <strong>{expense.name}</strong>
 
-          // Budget update will be connected here later
+                  <span>
+                    {new Date(
+                      Number(expense.id)
+                    ).toLocaleDateString("en-US", {
+                      month: "short",
+                      day: "numeric",
+                      year: "numeric",
+                    })}
+                  </span>
+                </div>
 
-          setShowBudget(false);
-        }}
+                <div className="transaction-amount">
+                  <strong>
+                    -₦
+                    {Number(
+                      expense.amount
+                    ).toLocaleString()}
+                  </strong>
+
+                  <span>
+                    {new Date(
+                      Number(expense.id)
+                    ).toLocaleTimeString("en-US", {
+                      hour: "numeric",
+                      minute: "2-digit",
+                    })}
+                  </span>
+                </div>
+              </div>
+            ))
+        ) : (
+          <p className="no-transactions">
+            No expenses recorded yet.
+          </p>
+        )}
+      </div>
+
+      <button
+        type="button"
+        className="transactions-modal-footer-btn"
+        onClick={() => setShowAllTransactions(false)}
       >
-
-        <label>
-          Monthly budget
-
-          <input
-            type="number"
-            defaultValue="50000"
-          />
-        </label>
-
-        <button
-          type="submit"
-          className="dashboard-modal-submit"
-        >
-          Update budget
-        </button>
-
-      </form>
+        Close
+      </button>
 
     </div>
-
   </div>
 )}
-
-
 
 
       
