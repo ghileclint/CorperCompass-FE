@@ -412,8 +412,10 @@
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: 14px 0;
+  padding: 14px ;
   border-bottom: 1px solid #edf1ef;
+  background-color: hsl(0, 0%, 100%);
+  border-radius: 10px;
  
 
 }
@@ -430,7 +432,7 @@
 .transaction-info strong{
   color: var(--primary-color);
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -560,10 +562,14 @@
   background: white;
   text-align: left;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .quick-action:last-child {
   border-bottom: 0;
+}
+.quick-action:first-child{
+  padding: 1px 7px;
 }
 
 .quick-action-icon {
@@ -591,7 +597,6 @@
   font-size: 10px;
   margin-top: 4px;
 }
-
 
 /* ================= SIDE CARD ================= */
 

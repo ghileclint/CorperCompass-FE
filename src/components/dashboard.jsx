@@ -1,4 +1,5 @@
 import React, {useMemo, useEffect, useState} from "react";
+import {Link} from "react-router-dom"
 
 
 import {
@@ -48,10 +49,6 @@ const Dashboard = () => {
      const savedExpenses = localStorage.getItem("expenses");
 
       try{
-       
-        // if (!savedExpenses) {
-        //   return [];
-        // }
         const parsedExpenses = savedExpenses ? JSON.parse(savedExpenses) : [];
         return Array.isArray(parsedExpenses) ? parsedExpenses : [];
       } catch (error) {
@@ -91,6 +88,8 @@ const Dashboard = () => {
       (total, expense) => total + Number(expense.amount || 0),
       0
     );
+    const budgetRemaining = Math.max(0, budgetAmount - totalSpent);
+    const suggestedSavings = Math.round(budgetAmount * 0.15);
   
     
    const percentageUsed =
@@ -173,7 +172,7 @@ const TOTAL_SERVICE_DAYS = 365;
       )
      }
     const hour = new Date().getHours();
-    const greetings = hour < 12 ? "Good morning" : hour < 17 ? "Good Afternoon" : "Good evening";
+    const greetings = hour < 12 ? "Good morning" : hour < 17 ? "Good afternoon" : "Good evening";
 
 
 
@@ -341,7 +340,7 @@ const TOTAL_SERVICE_DAYS = 365;
 
 
                   <span>
-                    Recommended daily limit ₦{(budgetAmount / 30).toLocaleString()}
+                    Recommended daily limit ₦{(budgetAmount / 30).toLocaleString("en-NG", {maximumFractionDigits: 0,})}
                   </span>
                 </div>
 
@@ -366,15 +365,15 @@ const TOTAL_SERVICE_DAYS = 365;
                 </div>
 
                 <p>
-                  Income this month
+                  Budget remaining
                 </p>
 
                 <h3>
-                  ₦33,000
+                  ₦{budgetRemaining.toLocaleString()}
                 </h3>
 
                 <span className="positive">
-                  +4.2% from last month
+                  ₦{totalSpent.toLocaleString()} used of ₦{budgetAmount.toLocaleString()}
                 </span>
 
               </div>
@@ -393,11 +392,12 @@ const TOTAL_SERVICE_DAYS = 365;
                 </p>
 
                 <h3>
-                  ₦12,400
+                  ₦{suggestedSavings.toLocaleString()}
                 </h3>
 
                 <span>
-                  Goal: ₦25,000 emergency fund
+                  15% of your ₦{budgetAmount.toLocaleString()} budget
+                  
                 </span>
 
               </div>
@@ -609,6 +609,8 @@ const TOTAL_SERVICE_DAYS = 365;
 
             <div className="quick-actions-card">
 
+              <Link to = "/budget" className="quick-action">
+
               <button className="quick-action">
 
                 <div className="quick-action-icon">
@@ -621,13 +623,15 @@ const TOTAL_SERVICE_DAYS = 365;
                   </strong>
 
                   <span>
-                    Plan your month
+                    Plan your ₦{budgetAmount.toLocaleString()} budget
                   </span>
                 </div>
 
                 <FiChevronRight />
 
               </button>
+               </Link>
+
                <button className="quick-action">
 
                 <div className="quick-action-icon">
