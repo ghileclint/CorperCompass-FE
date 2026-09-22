@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../routes/routePaths";
 import styles from "../signup/css/setprofile.module.css";
 import Button from "../../components/Button";
 import TextInput from "../../components/TextInput";
@@ -6,6 +8,8 @@ import { MdLockOutline } from "react-icons/md";
 import { useState } from "react";
 
 const SetProfile = () => {
+  const navigate = useNavigate();
+
   const [photo, setPhoto] = useState(null);
 
   const handlePhotoChange = (e) => {
@@ -14,6 +18,11 @@ const SetProfile = () => {
     if (file) {
       setPhoto(URL.createObjectURL(file));
     }
+  };
+
+  const handleContinue = () => {
+    // when validated
+    navigate(ROUTES.UPLOAD_LETTER);
   };
 
   return (
@@ -65,7 +74,7 @@ const SetProfile = () => {
         </div>
 
         <div className={styles.btnContainer}>
-          <Button text="Continue" filled="btnFilled" />
+          <Button text="Continue" filled="btnFilled" onClick={handleContinue} />
         </div>
       </div>
     </div>

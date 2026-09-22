@@ -1,9 +1,21 @@
+import { Navigate, useNavigate } from "react-router-dom";
+import { ROUTES } from "../../routes/routePaths";
 import Button from "../../components/Button";
 import styles from "../onboarding/css/footingSlide.module.css";
 import Dot from "../../components/Dot";
 import Image from "../../assets/images/CorperWithMap.png";
 
 const FootingSlide = () => {
+  const navigate = useNavigate();
+
+  const goToLogin = () => {
+    navigate(ROUTES.LOGIN);
+  };
+
+  const goToSignUp = () => {
+    navigate(ROUTES.SIGNUP);
+  };
+
   return (
     <div className={styles.footingSlideContainer}>
       <div className={styles.imgContainer}>
@@ -23,8 +35,12 @@ const FootingSlide = () => {
           </p>
         </div>
         <div className={styles.btnContainer}>
-          <Button text="Primary - Continue" filled="btnFilled" />
-          <Button text="I already have an account" />
+          <Button
+            text="Primary - Continue"
+            filled="btnFilled"
+            onClick={goToSignUp}
+          />
+          <Button text="I already have an account" onClick={goToLogin} />
         </div>
       </div>
     </div>

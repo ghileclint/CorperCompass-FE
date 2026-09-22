@@ -1,8 +1,17 @@
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../routes/routePaths";
 import styles from "../signup/css/nyscDetails.module.css";
 import Button from "../../components/Button";
 import { IoIosInformationCircle } from "react-icons/io";
 
 const NyscDetails = () => {
+  const navigate = useNavigate();
+
+  const handleContinue = () => {
+    // if form is valid
+    navigate(ROUTES.SET_PROFILE);
+  };
+
   return (
     <div className={styles.detailsContainer}>
       <div className={styles.heading}>
@@ -53,7 +62,7 @@ const NyscDetails = () => {
       </div>
 
       <div className={styles.btnContainer}>
-        <Button text="Continue" filled="btnFilled" />
+        <Button text="Continue" filled="btnFilled" onClick={handleContinue} />
       </div>
     </div>
   );

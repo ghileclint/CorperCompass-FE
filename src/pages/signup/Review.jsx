@@ -1,11 +1,19 @@
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../routes/routePaths";
 import Button from "../../components/Button";
 import Indicator from "../../components/ProgressIndicator";
 import styles from "../signup/css/review.module.css";
 import { VscOpenPreview } from "react-icons/vsc";
-import { FaCheck } from "react-icons/fa";
 import Image from "../../assets/images/verify.png";
 
 const Review = () => {
+  const navigate = useNavigate();
+
+  const handleContinue = () => {
+    // do some validation before you continue
+
+    navigate(ROUTES.ALL_SET);
+  };
   return (
     <div className={styles.reviewContainer}>
       <div className={styles.reviewImage}>
@@ -31,7 +39,11 @@ const Review = () => {
         </div>
 
         <div className={styles.btn}>
-          <Button text="Explore the app" filled="btnFilled" />
+          <Button
+            text="Explore the app"
+            filled="btnFilled"
+            onClick={handleContinue}
+          />
         </div>
       </div>
     </div>

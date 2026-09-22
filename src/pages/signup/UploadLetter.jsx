@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../routes/routePaths";
 import { IoCloudUploadOutline } from "react-icons/io5";
 import { MdOutlinePendingActions } from "react-icons/md";
 import { GoQuestion } from "react-icons/go";
@@ -9,6 +11,8 @@ import styles from "../signup/css/uploadLetter.module.css";
 import Button from "../../components/Button";
 
 const UploadLetter = () => {
+  const navigate = useNavigate();
+
   const [isOpen, setIsOpen] = useState(false);
   const [letter, setLetter] = useState(null);
   const [preview, setPreview] = useState(null);
@@ -34,6 +38,11 @@ const UploadLetter = () => {
   const removeFile = () => {
     setLetter(null);
     setPreview(null);
+  };
+
+  const handleContinue = () => {
+    // once validated
+    navigate(ROUTES.REVIEW);
   };
 
   return (
@@ -116,8 +125,14 @@ const UploadLetter = () => {
       </div>
 
       <div className={styles.uploadBtn}>
-        <Button text="Submit & Continue" filled="btnFilled" />
+        <Button
+          text="Submit & Continue"
+          filled="btnFilled"
+          onClick={handleContinue}
+        />
         <Button text="Skip for now" />
+        {/* this button should take you to the non
+        authenticated app version */}
       </div>
 
       <div className={styles.bottomText}>

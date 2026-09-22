@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import { IoIosArrowForward } from "react-icons/io";
 import { IoIosArrowBack } from "react-icons/io";
+
 import styles from "../onboarding/css/onboarding.module.css";
-import SplashScreen from "../SplashScreen";
+import SplashScreen from "./SplashScreen";
 import FootingSlide from "./FootingSlide";
 import TrustedVendorsSlide from "./TrustedVendorsSlide";
 import ConnectSlide from "./ConnectSlide";
@@ -18,6 +20,9 @@ const slides = [
 const Onboarding = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [touchStart, setTouchStart] = useState(null);
+
+  const isFirstSlide = currentSlide === 0;
+  const isLastSlide = currentSlide === slides.length - 1;
 
   const handlesNext = () => {
     if (currentSlide < slides.length - 1)
@@ -63,14 +68,23 @@ const Onboarding = () => {
         onTouchEnd={handleTouchEnd}
       >
         {slides[currentSlide]}
-        <div className={styles.navigation}>
-          <button onClick={handlesBack}>
-            <IoIosArrowBack className={styles.icon} />
-          </button>
-          <button onClick={handlesNext}>
-            <IoIosArrowForward className={styles.icon} />
-          </button>
+
+        <div
+          className={`${styles.navigation} ${isFirstSlide ? styles.firstSlide : ""}`}
+        >
+          {!isFirstSlide && (
+            <button onClick={handlesBack}>
+              <IoIosArrowBack className={styles.icon} />
+            </button>
+          )}
+
+          {!isLastSlide && (
+            <button onClick={handlesNext}>
+              <IoIosArrowForward className={styles.icon} />
+            </button>
+          )}
         </div>
+
         <button className={styles.skipBtn} onClick={goToLogin}>
           Skip
         </button>

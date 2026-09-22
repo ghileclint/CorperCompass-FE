@@ -6,6 +6,10 @@ import { BiRightArrowAlt } from "react-icons/bi";
 import Image from "../../assets/images/celebrate.png";
 
 const AllSet = () => {
+  const handleContinue = () => {
+    // once validated
+  };
+
   return (
     <div className={styles.allSetContainer}>
       <div className={styles.allSetImg}>

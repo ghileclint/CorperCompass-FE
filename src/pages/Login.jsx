@@ -1,13 +1,17 @@
+import { Link } from "react-router-dom";
 import styles from "../css/login.module.css";
 import Button from "../components/Button";
 import PasswordInput from "../components/PasswordInput";
-import Input from "../components/Input";
+import TextInput from "../components/TextInput";
+import logo from "../assets/images/logo2.png";
 
 const Login = () => {
   return (
     <div className={styles.loginContainer}>
       <div className={styles.headingContainer}>
-        <img src="" alt="logo" className={styles.img} />
+        <div className={styles.img}>
+          <img src={logo} alt="logo" />
+        </div>
         <h3 className={styles.heading}>Welcome back</h3>
         <p className={styles.text}>Log in to your account</p>
       </div>
@@ -15,16 +19,16 @@ const Login = () => {
       <div className={styles.form}>
         <form action="" className={styles.loginInfo}>
           <div className={styles.info}>
-            <Input label="Name:" type="text" placeholder="Enter name" />
+            <TextInput label="Name:" type="text" placeholder="Enter name" />
           </div>
 
           <div>
             <PasswordInput label="Password:" placeholder="Enter password" />
           </div>
 
-          <a href="" className={styles.forgetPassword}>
+          <Link to="" className={styles.forgetPassword}>
             Forgot password?
-          </a>
+          </Link>
         </form>
       </div>
 
@@ -38,7 +42,7 @@ const Login = () => {
 
       <div className={styles.footer}>
         <p>
-          Don't have an account? <a href="">Sign up</a>
+          Don't have an account? <Link to="/signup">Sign up</Link>
         </p>
       </div>
     </div>

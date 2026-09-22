@@ -45,7 +45,6 @@
 
 .bottomContainer button {
   width: 100%;
-  height: 50px;
 }
 
 .bottomContainer .bottomText {
@@ -54,4 +53,5 @@
 
 .bottomContainer .bottomText a {
   color: var(--secondary-color);
+  font-weight: bold;
 }

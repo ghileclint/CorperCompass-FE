@@ -1,5 +1,5 @@
-import styles from "./onboarding/css/splashscreen.module.css";
-import logo from "../assets/images/logo.png";
+import styles from "./css/splashscreen.module.css";
+import logo from "../../assets/images/logo.png";
 
 const SplashScreen = () => {
   return (
