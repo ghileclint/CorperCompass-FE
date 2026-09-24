@@ -21,61 +21,29 @@
 }
 
 .header {
-  width: 100%;
-  box-sizing: border-box;
-
   display: flex;
   align-items: center;
-
-  gap: 10px;
-
-  padding: 14px 16px;
-
+  gap: 12px;
+  padding: 12px 16px;
   color: #ffffff;
 }
 
-.backButton,
-.filterButton {
-  width: 28px;
-  height: 28px;
-
-  padding: 0;
-
-  background: transparent;
+.backButton {
+  background: none;
   border: none;
-
   color: #ffffff;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  flex-shrink: 0;
-
   cursor: pointer;
+  display: flex;
 }
 
-.filterButton {
+.headerIcon {
   margin-left: auto;
 }
 
 .title {
-  flex: 1;
-  min-width: 0;
-
-  margin: 0;
-
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
-  line-height: 1.2;
-
-  color: #ffffff;
-
-  text-align: left;
-
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  margin: 0;
 }
 
 /* =========================
@@ -84,29 +52,19 @@
 
 .searchWrapper {
   width: calc(100% - 32px);
-  height: 48px;
-
+  height: 35px;
   box-sizing: border-box;
-
   margin: 0 16px;
-
   padding: 0 14px;
-
   display: flex;
   align-items: center;
-
   gap: 10px;
-
-  background: #0c693b;
-
+  background:  #064d2b;
   border: none;
-  border-radius: 10px;
-
+  border-radius: 999px;
   cursor: pointer;
-
   text-align: left;
 }
-
 .searchIcon {
   color: #ffffff;
 

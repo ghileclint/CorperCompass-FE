@@ -29,19 +29,17 @@ body {
     "Open Sans",
     "Helvetica Neue",
     sans-serif;
-  background: #e5e5e5;
-  display: flex;
-  justify-content: center;
+  background: #ffffff;
+  overflow-x: hidden;
 }
 
-/* Mobile-first app shell: full-width on actual phones (viewport already
-   narrow, so max-width never kicks in), but constrained + centered like
-   a phone frame on tablets/desktops, matching the Figma mockups. */
+/* Always fills the real screen width, on every device — no gray bars,
+   no artificial "desktop card". The mobile design (from Figma) is the
+   only design that exists, so it fills whatever space it's given
+   instead of being boxed into a fixed-width card. */
 #root {
   width: 100%;
-  max-width: 480px;
   min-height: 100vh;
   background: #ffffff;
-  box-shadow: 0 0 24px rgba(0, 0, 0, 0.08);
-  position: relative;
+  overflow-x: hidden;
 }

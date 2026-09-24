@@ -151,6 +151,8 @@ export default function VendorProfilePage() {
 
   const mainImage = gallery[0] || vendor.image || "";
 
+  // Same idea as the lodge page's thumbColumn: everything after the
+  // main image, shown as a stacked column (1 or 2 images).
   const sideImages = gallery.slice(1, 3);
 
   return (
@@ -191,46 +193,38 @@ export default function VendorProfilePage() {
         </div>
       </header>
 
+      {/* Gallery — rebuilt to match LodgeProfilePage's structure and
+          spacing exactly: inset margin, rounded block, main image +
+          stacked thumb column, "See more" pill anchored to the
+          gallery's real outer corner. */}
       {!showFullGallery ? (
-        <section className={styles.gallery}>
-          <div className={styles.mainImageWrapper}>
-            {mainImage ? (
-              <img
-                src={mainImage}
-                alt={vendor.name}
-                className={styles.mainImage}
-              />
-            ) : (
-              <div className={styles.imagePlaceholder}>
-                No image available
-              </div>
-            )}
-          </div>
+        <div className={styles.gallery}>
+          {mainImage ? (
+            <img
+              src={mainImage}
+              alt={vendor.name}
+              className={styles.mainImage}
+            />
+          ) : (
+            <div className={styles.imagePlaceholder}>
+              No image available
+            </div>
+          )}
 
-          <div className={styles.sideImages}>
-            {sideImages.map((image, index) => (
-              <div
-                className={styles.sideImageWrapper}
-                key={`${image}-${index}`}
-              >
+          {sideImages.length > 0 && (
+            <div className={styles.thumbColumn}>
+              {sideImages.map((image, index) => (
                 <img
+                  key={`${image}-${index}`}
                   src={image}
                   alt={`${vendor.name} ${index + 2}`}
-                  className={styles.sideImage}
+                  className={`${styles.thumbImage} ${
+                    sideImages.length === 1 ? styles.singleThumb : ""
+                  }`}
                 />
-              </div>
-            ))}
-
-            {sideImages.length < 2 &&
-              Array.from({ length: 2 - sideImages.length }).map(
-                (_, index) => (
-                  <div
-                    className={styles.sideImagePlaceholder}
-                    key={`placeholder-${index}`}
-                  />
-                )
-              )}
-          </div>
+              ))}
+            </div>
+          )}
 
           {gallery.length > 1 && (
             <button
@@ -238,10 +232,10 @@ export default function VendorProfilePage() {
               className={styles.seeMoreButton}
               onClick={() => setShowFullGallery(true)}
             >
-              See more
+              See more ({gallery.length} photos)
             </button>
           )}
-        </section>
+        </div>
       ) : (
         <section className={styles.fullGalleryWrapper}>
           <div className={styles.fullGalleryHeader}>

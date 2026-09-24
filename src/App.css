@@ -1,0 +1,7 @@
+/* Matches navbar.module.css's breakpoint exactly - padding only needed
+   while NavBar is fixed to the bottom (below 1024px). */
+@media (max-width: 1023px) {
+  .app-content {
+    padding-bottom: 90px;
+  }
+}

@@ -2,13 +2,15 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import styles from './PhrasebookPage.module.css';
 import PhraseRow from '../components/PhraseRow';
-import TopNavIcons from '../components/TopNavIcons';
 import { getPhrases, getPhraseCategories } from '../../../../api/culture.api';
 
 /**
  * PhrasebookPage
- * Matches the "Phrasebook" Figma frame: back header, "Common Yoruba
- * phrases" title, full scrollable list of phrases.
+ * Matches the "Phrasebook" Figma frame: back header, category tabs,
+ * "Common Yoruba phrases" title, full scrollable list of phrases.
+ *
+ * NOTE: no page-specific nav icons here — the app has a global <NavBar />
+ * rendered once in App.jsx, so this page relies on that instead.
  */
 export default function PhrasebookPage() {
   const navigate = useNavigate();
@@ -46,8 +48,6 @@ export default function PhrasebookPage() {
         </button>
         <h1 className={styles.title}>Phrasebook</h1>
       </header>
-
-      <TopNavIcons />
 
       <div className={styles.body}>
         <div className={styles.categoryTabs}>

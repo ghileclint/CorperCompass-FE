@@ -29,29 +29,45 @@ export default function LodgeProfilePage() {
   const [showAllReviews, setShowAllReviews] = useState(false);
 
   useEffect(() => {
-    let cancelled = false;
+  let cancelled = false;
 
-    Promise.all([
-      fetchLodgeById(lodgeId),
-      fetchMoreLodges(lodgeId),
-    ])
-      .then(([profile, related]) => {
-        if (cancelled) return;
+  async function loadLodge() {
+    try {
+      const profile = await fetchLodgeById(lodgeId);
 
-        setLodge(profile);
-        setMoreLodges(related);
-        setStatus("ready");
-      })
-      .catch(() => {
+      if (cancelled) return;
+
+      setLodge(profile);
+      setStatus("ready");
+
+      try {
+        const related = await fetchMoreLodges(lodgeId);
+
         if (!cancelled) {
-          setStatus("error");
+          setMoreLodges(related);
         }
-      });
+      } catch (error) {
+        console.error("Failed to load related lodges:", error);
 
-    return () => {
-      cancelled = true;
-    };
-  }, [lodgeId]);
+        if (!cancelled) {
+          setMoreLodges([]);
+        }
+      }
+    } catch (error) {
+      console.error("Failed to load lodge:", error);
+
+      if (!cancelled) {
+        setStatus("error");
+      }
+    }
+  }
+
+  loadLodge();
+
+  return () => {
+    cancelled = true;
+  };
+}, [lodgeId]);
 
   if (status === "loading") {
     return (
@@ -71,19 +87,10 @@ export default function LodgeProfilePage() {
     );
   }
 
-  const reviews = Array.isArray(lodge.reviews)
-    ? lodge.reviews
-    : [];
-
+  const reviews = Array.isArray(lodge.reviews) ? lodge.reviews : [];
   const reviewCount = reviews.length;
-
-  const visibleReviews = showAllReviews
-    ? reviews
-    : reviews.slice(0, 3);
-
-  const gallery = Array.isArray(lodge.gallery)
-    ? lodge.gallery
-    : [];
+  const visibleReviews = showAllReviews ? reviews : reviews.slice(0, 3);
+  const gallery = Array.isArray(lodge.gallery) ? lodge.gallery : [];
 
   return (
     <div className={styles.page}>
@@ -99,22 +106,15 @@ export default function LodgeProfilePage() {
             <FiArrowLeft size={20} />
           </button>
 
-          <h1 className={styles.headerTitle}>
-            {lodge.name}
-          </h1>
+          <h1 className={styles.headerTitle}>{lodge.name}</h1>
 
           <button
             type="button"
             onClick={() => setSaved((current) => !current)}
-            aria-label={
-              saved ? "Remove from saved" : "Save lodge"
-            }
+            aria-label={saved ? "Remove from saved" : "Save lodge"}
             className={styles.iconButton}
           >
-            <FiHeart
-              size={20}
-              fill={saved ? "#ffffff" : "none"}
-            />
+            <FiHeart size={20} fill={saved ? "#ffffff" : "none"} />
           </button>
         </div>
 
@@ -123,18 +123,16 @@ export default function LodgeProfilePage() {
           className={styles.searchWrapper}
           onClick={() => navigate("/lodges/search")}
         >
-          <FiSearch
-            size={18}
-            className={styles.searchIcon}
-          />
-
+          <FiSearch size={18} className={styles.searchIcon} />
           <span className={styles.searchPlaceholder}>
             Search vendors, lodges, food...
           </span>
         </button>
       </header>
 
-      {/* Gallery */}
+      {/* Gallery — main image + a stacked thumb column, mirroring the
+          working VendorProfilePage structure exactly so the See more
+          pill positions against the gallery's real outer corner. */}
       {!showFullGallery ? (
         gallery.length > 0 && (
           <div className={styles.gallery}>
@@ -145,23 +143,23 @@ export default function LodgeProfilePage() {
             />
 
             {gallery.length > 1 && (
-              <img
-                src={gallery[1]}
-                alt=""
-                className={`${styles.thumbImage} ${
-                  gallery.length === 2
-                    ? styles.singleThumb
-                    : ""
-                }`}
-              />
-            )}
+              <div className={styles.thumbColumn}>
+                <img
+                  src={gallery[1]}
+                  alt=""
+                  className={`${styles.thumbImage} ${
+                    gallery.length === 2 ? styles.singleThumb : ""
+                  }`}
+                />
 
-            {gallery.length > 2 && (
-              <img
-                src={gallery[2]}
-                alt=""
-                className={styles.thumbImage}
-              />
+                {gallery.length > 2 && (
+                  <img
+                    src={gallery[2]}
+                    alt=""
+                    className={styles.thumbImage}
+                  />
+                )}
+              </div>
             )}
 
             {gallery.length > 1 && (
@@ -203,78 +201,59 @@ export default function LodgeProfilePage() {
 
       {/* Lodge information */}
       <div className={styles.content}>
-        <p className={styles.subtitle}>
-          {lodge.subtitle}
-        </p>
+        <p className={styles.subtitle}>{lodge.subtitle}</p>
+        <p className={styles.tagline}>{lodge.tagline}</p>
+        <p className={styles.roomInfo}>{lodge.roomInfo}</p>
 
-        <p className={styles.tagline}>
-          {lodge.tagline}
-        </p>
-
-        <p className={styles.roomInfo}>
-          {lodge.roomInfo}
-        </p>
-
-        {/* Map + rating/reviews */}
         {/* Map + rating */}
-<div className={styles.mapRow}>
-  <a
-    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-      lodge.subtitle
-    )}`}
-    target="_blank"
-    rel="noopener noreferrer"
-    className={styles.mapButton}
-  >
-    <FiMapPin size={14} />
-    <span>View on map</span>
-  </a>
+        <div className={styles.mapRow}>
+          <a
+            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+              lodge.subtitle
+            )}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.mapButton}
+          >
+            <FiMapPin size={14} />
+            <span>View on map</span>
+          </a>
 
-  <div className={styles.ratingSummary}>
-    <div className={styles.ratingColumn}>
-      <span className={styles.ratingValue}>
-        {lodge.rating}
-      </span>
+          <div className={styles.ratingSummary}>
+            <div className={styles.ratingColumn}>
+              <span className={styles.ratingValue}>{lodge.rating}</span>
 
-      <div className={styles.ratingStars}>
-        {Array.from({ length: 5 }).map((_, index) => (
-          <FiStar
-            key={index}
-            size={11}
-            className={styles.ratingStar}
-            fill={
-              index < Math.round(lodge.rating)
-                ? "currentColor"
-                : "none"
-            }
-          />
-        ))}
-      </div>
-    </div>
+              <div className={styles.ratingStars}>
+                {Array.from({ length: 5 }).map((_, index) => (
+                  <FiStar
+                    key={index}
+                    size={11}
+                    className={styles.ratingStar}
+                    fill={
+                      index < Math.round(lodge.rating)
+                        ? "currentColor"
+                        : "none"
+                    }
+                  />
+                ))}
+              </div>
+            </div>
 
-    <div className={styles.reviewSummary}>
-      <span className={styles.reviewNumber}>
-        {lodge.reviews.length}
-      </span>
-
-      <span className={styles.reviewLabel}>
-        Reviews
-      </span>
-    </div>
-  </div>
-</div>
+            <div className={styles.reviewSummary}>
+              <span className={styles.reviewNumber}>
+                {lodge.reviews.length}
+              </span>
+              <span className={styles.reviewLabel}>Reviews</span>
+            </div>
+          </div>
+        </div>
 
         {/* Facilities */}
-        <h2 className={styles.sectionTitle}>
-          Facilities
-        </h2>
+        <h2 className={styles.sectionTitle}>Facilities</h2>
 
         <ul className={styles.facilitiesList}>
           {lodge.facilities.map((facility) => (
-            <li
-              key={facility}
-              className={styles.facilityItem}
-            >
+            <li key={facility} className={styles.facilityItem}>
               {facility}
             </li>
           ))}
@@ -283,65 +262,42 @@ export default function LodgeProfilePage() {
         {/* Reviews */}
         {reviews.length > 0 && (
           <>
-            <h2 className={styles.sectionTitle}>
-              Reviews
-            </h2>
+            <h2 className={styles.sectionTitle}>Reviews</h2>
 
             <div className={styles.reviewsList}>
               {visibleReviews.map((review) => (
-                <div
-                  key={review.id}
-                  className={styles.reviewCard}
-                >
+                <div key={review.id} className={styles.reviewCard}>
                   <div className={styles.reviewHeader}>
                     <div className={styles.avatar}>
                       {review.name?.charAt(0)}
                     </div>
 
                     <div>
-                      <p
-                        className={styles.reviewerName}
-                      >
-                        {review.name}
-                      </p>
-
-                      <p
-                        className={styles.reviewTime}
-                      >
-                        {review.timeAgo}
-                      </p>
+                      <p className={styles.reviewerName}>{review.name}</p>
+                      <p className={styles.reviewTime}>{review.timeAgo}</p>
                     </div>
                   </div>
 
                   <div className={styles.starsRow}>
-                    {Array.from({
-                      length: review.rating,
-                    }).map((_, index) => (
-                      <FiStar
-                        key={index}
-                        size={11}
-                        fill="currentColor"
-                      />
+                    {Array.from({ length: review.rating }).map((_, index) => (
+                      <FiStar key={index} size={11} fill="currentColor" />
                     ))}
                   </div>
 
-                  <p className={styles.reviewText}>
-                    {review.text}
-                  </p>
+                  <p className={styles.reviewText}>{review.text}</p>
                 </div>
               ))}
             </div>
 
-            {!showAllReviews &&
-              reviewCount > visibleReviews.length && (
-                <button
-                  type="button"
-                  className={styles.seeAllButton}
-                  onClick={() => setShowAllReviews(true)}
-                >
-                  See all {reviewCount} reviews
-                </button>
-              )}
+            {!showAllReviews && reviewCount > visibleReviews.length && (
+              <button
+                type="button"
+                className={styles.seeAllButton}
+                onClick={() => setShowAllReviews(true)}
+              >
+                See all {reviewCount} reviews
+              </button>
+            )}
           </>
         )}
 
@@ -349,9 +305,7 @@ export default function LodgeProfilePage() {
         {moreLodges.length > 0 && (
           <>
             <div className={styles.moreHeader}>
-              <h2 className={styles.sectionTitle}>
-                More apartments
-              </h2>
+              <h2 className={styles.sectionTitle}>More apartments</h2>
 
               <button
                 type="button"
@@ -369,9 +323,7 @@ export default function LodgeProfilePage() {
                   key={related.id}
                   lodge={related}
                   onClick={(selectedLodge) =>
-                    navigate(
-                      `/lodges/${selectedLodge.id}`
-                    )
+                    navigate(`/lodges/${selectedLodge.id}`)
                   }
                 />
               ))}

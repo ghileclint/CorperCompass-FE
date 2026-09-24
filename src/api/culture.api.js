@@ -1,79 +1,51 @@
-/**
- * culture.api.js
- * -----------------------------------------------------------------------
- * All Culture Guide data access goes through this file. No component
- * ever imports culture.js (the mock data) directly.
- *
- * TO CONNECT THE REAL BACKEND:
- *   1. Set your API base URL (however your project already does this —
- *      check vendors.api.js for the existing pattern and match it).
- *   2. In each function below, delete the MOCK MODE block and uncomment
- *      the LIVE MODE block.
- *   3. Delete src/data/culture.js — nothing else imports it.
- *   4. No component needs to change.
- * -----------------------------------------------------------------------
- */
+// src/api/culture.api.js
+//
+// ── This is the ONLY file that should change once the real backend
+//    exists. Every page/component calls these functions — never the
+//    mock data directly — so swapping mock -> real API is a one-file edit.
 
-import { MOCK_STATES, MOCK_PHRASES, MOCK_CUSTOMS, PHRASE_CATEGORIES } from '../data/culture';
+import {
+  states as mockStates,
+  phrasebooks,
+  phraseCategories,
+  customsData,
+} from "../data/culture";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_BASE_URLNEXT_PUBLIC_API_BASE_URL || '';
-
-async function request(path, options = {}) {
-  const res = await fetch(`${API_BASE_URL}${path}`, {
-    headers: { 'Content-Type': 'application/json' },
-    ...options,
-  });
-  if (!res.ok) {
-    const body = await res.json().catch(() => ({}));
-    throw new Error(body.message || `Request failed: ${res.status}`);
-  }
-  return res.json();
+const MOCK_DELAY_MS = 400;
+function delay(value) {
+  return new Promise((resolve) => setTimeout(() => resolve(value), MOCK_DELAY_MS));
 }
 
-function simulateLatency(ms = 350) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-/** List of states with cultural guides available. */
+/** List of states, each already including welcomeTitle/welcomeText. */
 export async function getStates() {
-  // ---- MOCK MODE ----
-  await simulateLatency();
-  return MOCK_STATES;
-
-  // ---- LIVE MODE ----
-  // return request('/culture/states');
+  // TODO(backend): GET /culture/states
+  return delay(mockStates);
 }
 
-/** Full phrase list for a given state, optionally filtered by category. */
-export async function getPhrases(stateId, categoryId) {
-  // ---- MOCK MODE ----
-  await simulateLatency();
-  const all = MOCK_PHRASES[stateId] || [];
-  return categoryId ? all.filter((p) => p.category === categoryId) : all;
-
-  // ---- LIVE MODE ----
-  // const query = categoryId ? `?category=${categoryId}` : '';
-  // return request(`/culture/states/${stateId}/phrases${query}`);
-}
-
-/** Category tabs shown above the phrase list (Greetings, Interactions, etc). */
+/** Category tabs shown on the Phrasebook page (Greetings/Interactions/etc). */
 export async function getPhraseCategories() {
-  // ---- MOCK MODE ----
-  await simulateLatency(150);
-  return PHRASE_CATEGORIES;
-
-  // ---- LIVE MODE ----
-  // return request('/culture/phrase-categories');
+  // TODO(backend): GET /culture/phrase-categories
+  return delay(phraseCategories);
 }
 
-/** Customs & etiquette content (intro, dos, don'ts, religious sensitivity) for a state. */
-export async function getCustoms(stateId) {
-  // ---- MOCK MODE ----
-  await simulateLatency();
-  const data = MOCK_CUSTOMS[stateId];
-  if (!data) throw new Error('No customs content for this state yet');
-  return data;
+/** Phrases for a state, optionally filtered to one category. Passing no
+ *  categoryId (used by CultureGuidePage's preview) returns everything. */
+export async function getPhrases(stateId, categoryId) {
+  // TODO(backend): GET /culture/:stateId/phrasebook?category=<categoryId>
+  let list = phrasebooks[stateId] ?? [];
+  if (categoryId) {
+    list = list.filter((p) => p.category === categoryId);
+  }
+  return delay(list);
+}
 
-  // ---- LIVE MODE ----
-  // return request(`/culture/states/${stateId}/customs`);
+/** Customs & etiquette for a state. Rejects if the state has no customs
+ *  content yet — callers already handle this with .catch(() => null). */
+export async function getCustoms(stateId) {
+  // TODO(backend): GET /culture/:stateId/customs
+  const data = customsData[stateId];
+  if (!data) {
+    return Promise.reject(new Error(`No customs content for state: ${stateId}`));
+  }
+  return delay(data);
 }

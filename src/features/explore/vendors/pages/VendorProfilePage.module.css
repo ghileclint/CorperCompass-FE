@@ -32,7 +32,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 14px 16px;
+  padding: 34px 16px;
   background: #14532d;
   color: #ffffff;
   border-radius: 0 0 16px 16px;
@@ -76,15 +76,60 @@
 
 /* =========================
    IMAGE GALLERY
+   Rebuilt to match LodgeProfilePage.module.css exactly: inset margin
+   (not edge-to-edge), rounded block, bigger gap, main image + a
+   stacked thumb column. This is the fix for "vendor gallery looks
+   flat compared to the lodge gallery."
 ========================= */
 
 .gallery {
   position: relative;
+  width: calc(100% - 32px);
+  margin: 16px;
+  box-sizing: border-box;
   display: grid;
   grid-template-columns: 2fr 1fr;
-  gap: 2px;
-  aspect-ratio: 16 / 9;
-  align-items: stretch;
+  gap: 6px;
+  height: clamp(220px, 62vw, 280px);
+  border-radius: 10px;
+  overflow: hidden;
+  background: #f0f0f0;
+}
+
+.mainImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.imagePlaceholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f0f0f0;
+  color: #a3a3a3;
+  font-size: 11px;
+}
+
+.thumbColumn {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 6px;
+  height: 100%;
+}
+
+.thumbImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.singleThumb {
+  grid-row: 1 / span 2;
 }
 
 .seeMoreButton {
@@ -97,7 +142,9 @@
   border-radius: 999px;
   padding: 4px 10px;
   font-size: 11px;
+  font-weight: 500;
   cursor: pointer;
+  white-space: nowrap;
   z-index: 2;
 }
 
@@ -135,58 +182,6 @@
   aspect-ratio: 4 / 3;
   object-fit: cover;
   display: block;
-}
-
-.mainImageWrapper {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  background: #f0f0f0;
-}
-
-.mainImage {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.imagePlaceholder {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #f0f0f0;
-  color: #a3a3a3;
-  font-size: 11px;
-}
-
-.sideImages {
-  display: grid;
-  grid-template-rows: 1fr 1fr;
-  gap: 2px;
-  height: 100%;
-}
-
-.sideImageWrapper {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  background: #f0f0f0;
-}
-
-.sideImage {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.sideImagePlaceholder {
-  width: 100%;
-  height: 100%;
-  background: #f0f0f0;
 }
 
 /* =========================

@@ -5,12 +5,11 @@ import StateSelector from '../components/StateSelector';
 import WelcomeBanner from '../components/WelcomeBanner';
 import PhraseRow from '../components/PhraseRow';
 import CustomItem from '../components/CustomItem';
-import TopNavIcons from '../components/TopNavIcons';
 import { getStates, getPhrases, getCustoms } from '../../../../api/culture.api';
 
 const TABS = [
   { id: 'phrasebook', label: 'Phrasebook' },
-  { id: 'customs', label: 'Customs & Etiquette'   },
+  { id: 'customs', label: 'Customs & Etiquette' },
 ];
 
 /**
@@ -18,6 +17,10 @@ const TABS = [
  * Matches the "Cultural Guide" Figma dashboard frame: state selector,
  * welcome banner, tab switcher, and a short preview of whichever tab
  * is active, with a link through to the full page.
+ *
+ * NOTE: this page does not render its own nav icons — the app has a
+ * global <NavBar /> rendered once in App.jsx, so this page relies on
+ * that instead of a page-specific nav row.
  */
 export default function CultureGuidePage({ onBack }) {
   const navigate = useNavigate();
@@ -57,14 +60,6 @@ export default function CultureGuidePage({ onBack }) {
         </button>
         <h1 className={styles.title}>Cultural Guide</h1>
       </header>
-
-      {/*
-        This icon row appears on Phrasebook and both Cultural Guide states
-        in Figma, but NOT on Customs & Etiquette — replicated exactly as
-        shown. If your app already has a shared/global nav bar used
-        elsewhere, use that instead to avoid two different nav bars.
-      */}
-      <TopNavIcons />
 
       <div className={styles.body}>
         {states.length > 0 && (

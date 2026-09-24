@@ -73,24 +73,19 @@ export default function LodgeDirectoryPage() {
     <div className={styles.page}>
       <div className={styles.headerBlock}>
         <header className={styles.header}>
-          <button
-            type="button"
-            onClick={() => navigate(-1)}
-            aria-label="Go back"
-            className={styles.backButton}
-          >
-            <FiArrowLeft size={18} />
-          </button>
-          <h1 className={styles.title}>Lodge Directory</h1>
-          <button
-            type="button"
-            onClick={() => setShowFilters(true)}
-            aria-label="Open filters"
-            className={styles.filterButton}
-          >
-            <FiSliders size={18} />
-          </button>
-        </header>
+  <button
+    type="button"
+    onClick={() => navigate(-1)}
+    aria-label="Go back"
+    className={styles.backButton}
+  >
+    <FiArrowLeft size={18} />
+  </button>
+
+  <h1 className={styles.title}>Lodge Directory</h1>
+
+  <FiSliders size={18} className={styles.headerIcon} />
+</header>
 
         <button
           type="button"

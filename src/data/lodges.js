@@ -1,14 +1,17 @@
 // src/data/lodges.js
-
 // Central mock data source for the Lodge Directory feature.
-// Components never hardcode lodge information.
+// Lodge images are stored locally in public/images/lodges/.
+// Components only read the image paths from this file.
 
-export const lodgeTypes = [
-  "All",
-  "Self-contain",
-  "Room",
-  "Near camp",
+const lodgeImage = (number) => `/images/lodges/lodge-${number}.png`;
+
+const lodgeGallery = (number) => [
+  lodgeImage(number),
+  lodgeImage(number),
+  lodgeImage(number),
 ];
+
+export const lodgeTypes = ["All", "Self-contain", "Room", "Near camp"];
 
 export const amenitiesList = [
   { id: "kitchen", label: "Kitchen" },
@@ -19,6 +22,15 @@ export const amenitiesList = [
   { id: "generator", label: "Generator" },
 ];
 
+export const priceRangeConfig = {
+  min: 16000,
+  max: 20000000,
+};
+
+// Flat lodge list.
+// `sections` controls which home-page section the lodge appears in.
+// `type` controls the filter-modal type.
+
 export const lodges = [
   {
     id: "sani-mufasa-lodge",
@@ -27,22 +39,14 @@ export const lodges = [
     tagline: "Female Exclusive Apartments",
     roomInfo: "2 Bedrooms · Parlour · Ensuite bathroom",
     location: "Maryland, Lagos",
-
-    // PRICE LEFT EXACTLY AS PROVIDED
-    price: 45000,
-
-    rating: 4.23,
     type: "Self-contain",
-
+    price: 45000,
+    rating: 4.23,
+    reviewCount: 11,
     sections: ["popular", "nearPPA"],
 
-    image: "/images/lodges/sani-mufasa-1.jpg",
-
-    gallery: [
-      "/images/lodges/sani-mufasa-1.jpg",
-      "/images/lodges/sani-mufasa-2.jpg",
-      "/images/lodges/sani-mufasa-3.jpg",
-    ],
+    image: lodgeImage(1),
+    gallery: lodgeGallery(1),
 
     facilities: [
       "Kitchen",
@@ -105,6 +109,8 @@ export const lodges = [
           "Decent size rooms and the borehole water is a big plus. Only downside was the walk to the main road for bikes.",
       },
     ],
+
+    totalReviews: 6,
   },
 
   {
@@ -114,29 +120,18 @@ export const lodges = [
     tagline: "Cozy self-contain near town",
     roomInfo: "1 Bedroom · Self-contain",
     location: "Maryland Lagos",
-
-    // PRICE LEFT EXACTLY AS PROVIDED
-    price: 289,
-
-    rating: 4.91,
     type: "Self-contain",
-
+    price: 289,
+    rating: 4.91,
+    reviewCount: 89,
     sections: ["popular"],
 
-    image: "/images/lodges/groveland-popular-1.jpg",
+    image: lodgeImage(2),
+    gallery: lodgeGallery(2),
 
-    gallery: [
-      "/images/lodges/groveland-popular-1.jpg",
-    ],
-
-    facilities: [
-      "Kitchen",
-      "WC Toilet",
-      "Wifi",
-      "Generator",
-    ],
-
+    facilities: ["Kitchen", "WC Toilet", "Wifi", "Generator"],
     reviews: [],
+    totalReviews: 89,
   },
 
   {
@@ -146,28 +141,18 @@ export const lodges = [
     tagline: "Bright and airy room",
     roomInfo: "1 Bedroom · Self-contain",
     location: "Maryland Lagos",
-
-    // PRICE LEFT EXACTLY AS PROVIDED
+    type: "Room",
     price: 289,
-
     rating: 4.91,
-    type: "Self-contain",
-
+    reviewCount: 89,
     sections: ["popular"],
 
-    image: "/images/lodges/groveland-popular-2.jpg",
+    image: lodgeImage(3),
+    gallery: lodgeGallery(3),
 
-    gallery: [
-      "/images/lodges/groveland-popular-2.jpg",
-    ],
-
-    facilities: [
-      "Kitchen",
-      "WC Toilet",
-      "Wifi",
-    ],
-
+    facilities: ["Kitchen", "WC Toilet", "Wifi"],
     reviews: [],
+    totalReviews: 89,
   },
 
   {
@@ -177,27 +162,18 @@ export const lodges = [
     tagline: "3 lodges left near camp",
     roomInfo: "Shared room · Near camp",
     location: "Maryland Lagos",
-
-    // PRICE LEFT EXACTLY AS PROVIDED
-    price: null,
-
-    rating: 4.91,
     type: "Near camp",
-
+    price: null,
+    rating: 4.91,
+    reviewCount: 34,
     sections: ["nearCamp"],
 
-    image: "/images/lodges/groveland-camp-1.jpg",
+    image: lodgeImage(4),
+    gallery: lodgeGallery(4),
 
-    gallery: [
-      "/images/lodges/groveland-camp-1.jpg",
-    ],
-
-    facilities: [
-      "Toilet",
-      "Road Access",
-    ],
-
+    facilities: ["Toilet", "Road Access"],
     reviews: [],
+    totalReviews: 34,
   },
 
   {
@@ -207,27 +183,18 @@ export const lodges = [
     tagline: "3 lodges left near camp",
     roomInfo: "Shared room · Near camp",
     location: "Maryland Lagos",
-
-    // PRICE LEFT EXACTLY AS PROVIDED
-    price: null,
-
-    rating: 4.91,
     type: "Near camp",
-
+    price: null,
+    rating: 4.91,
+    reviewCount: 34,
     sections: ["nearCamp"],
 
-    image: "/images/lodges/groveland-camp-2.jpg",
+    image: lodgeImage(5),
+    gallery: lodgeGallery(5),
 
-    gallery: [
-      "/images/lodges/groveland-camp-2.jpg",
-    ],
-
-    facilities: [
-      "Toilet",
-      "Road Access",
-    ],
-
+    facilities: ["Toilet", "Road Access"],
     reviews: [],
+    totalReviews: 34,
   },
 
   {
@@ -237,27 +204,18 @@ export const lodges = [
     tagline: "Budget-friendly self-contain",
     roomInfo: "1 Bedroom · Self-contain",
     location: "Maryland Lagos",
-
-    // PRICE LEFT EXACTLY AS PROVIDED
-    price: 289,
-
-    rating: 4.91,
     type: "Self-contain",
-
+    price: 289,
+    rating: 4.91,
+    reviewCount: 56,
     sections: ["affordable"],
 
-    image: "/images/lodges/groveland-affordable-1.jpg",
+    image: lodgeImage(6),
+    gallery: lodgeGallery(6),
 
-    gallery: [
-      "/images/lodges/groveland-affordable-1.jpg",
-    ],
-
-    facilities: [
-      "Kitchen",
-      "Toilet",
-    ],
-
+    facilities: ["Kitchen", "Toilet"],
     reviews: [],
+    totalReviews: 56,
   },
 
   {
@@ -267,27 +225,18 @@ export const lodges = [
     tagline: "Budget-friendly self-contain",
     roomInfo: "1 Bedroom · Self-contain",
     location: "Maryland Lagos",
-
-    // PRICE LEFT EXACTLY AS PROVIDED
+    type: "Room",
     price: 289,
-
     rating: 4.91,
-    type: "Self-contain",
-
+    reviewCount: 56,
     sections: ["affordable"],
 
-    image: "/images/lodges/groveland-affordable-2.jpg",
+    image: lodgeImage(7),
+    gallery: lodgeGallery(7),
 
-    gallery: [
-      "/images/lodges/groveland-affordable-2.jpg",
-    ],
-
-    facilities: [
-      "Kitchen",
-      "Toilet",
-    ],
-
+    facilities: ["Kitchen", "Toilet"],
     reviews: [],
+    totalReviews: 56,
   },
 
   {
@@ -297,28 +246,18 @@ export const lodges = [
     tagline: "Near your PPA",
     roomInfo: "1 Bedroom · Self-contain",
     location: "Maryland, Lagos",
-
-    // PRICE LEFT EXACTLY AS PROVIDED
-    price: 45000,
-
-    rating: 4.91,
     type: "Self-contain",
-
+    price: 45000,
+    rating: 4.91,
+    reviewCount: 22,
     sections: ["nearPPA"],
 
-    image: "/images/lodges/darrell-steward.jpg",
+    image: lodgeImage(8),
+    gallery: lodgeGallery(8),
 
-    gallery: [
-      "/images/lodges/darrell-steward.jpg",
-    ],
-
-    facilities: [
-      "Kitchen",
-      "Toilet",
-      "Wifi",
-    ],
-
+    facilities: ["Kitchen", "Toilet", "Wifi"],
     reviews: [],
+    totalReviews: 22,
   },
 
   {
@@ -328,28 +267,18 @@ export const lodges = [
     tagline: "Near your PPA",
     roomInfo: "1 Bedroom · Self-contain",
     location: "Maryland, Lagos",
-
-    // PRICE LEFT EXACTLY AS PROVIDED
+    type: "Room",
     price: 45000,
-
     rating: 4.91,
-    type: "Self-contain",
-
+    reviewCount: 18,
     sections: ["nearPPA"],
 
-    image: "/images/lodges/ronald-richards.jpg",
+    image: lodgeImage(9),
+    gallery: lodgeGallery(9),
 
-    gallery: [
-      "/images/lodges/ronald-richards.jpg",
-    ],
-
-    facilities: [
-      "Kitchen",
-      "Toilet",
-      "Generator",
-    ],
-
+    facilities: ["Kitchen", "Toilet", "Generator"],
     reviews: [],
+    totalReviews: 18,
   },
 
   {
@@ -359,29 +288,18 @@ export const lodges = [
     tagline: "Near your PPA",
     roomInfo: "1 Bedroom · Self-contain",
     location: "Maryland, Lagos",
-
-    // PRICE LEFT EXACTLY AS PROVIDED
-    price: 45000,
-
-    rating: 4.91,
     type: "Self-contain",
-
+    price: 45000,
+    rating: 4.91,
+    reviewCount: 27,
     sections: ["nearPPA"],
 
-    image: "/images/lodges/jenny-wilson.jpg",
+    image: lodgeImage(10),
+    gallery: lodgeGallery(10),
 
-    gallery: [
-      "/images/lodges/jenny-wilson.jpg",
-    ],
-
-    facilities: [
-      "Kitchen",
-      "Toilet",
-      "Wifi",
-      "Generator",
-    ],
-
+    facilities: ["Kitchen", "Toilet", "Wifi", "Generator"],
     reviews: [],
+    totalReviews: 27,
   },
 
   {
@@ -391,46 +309,22 @@ export const lodges = [
     tagline: "Near your PPA",
     roomInfo: "1 Bedroom · Self-contain",
     location: "Maryland, Lagos",
-
-    // PRICE LEFT EXACTLY AS PROVIDED
+    type: "Near camp",
     price: 45000,
-
     rating: 4.91,
-    type: "Self-contain",
-
+    reviewCount: 15,
     sections: ["nearPPA"],
 
-    image: "/images/lodges/jacob-jones.jpg",
+    image: lodgeImage(11),
+    gallery: lodgeGallery(11),
 
-    gallery: [
-      "/images/lodges/jacob-jones.jpg",
-    ],
-
-    facilities: [
-      "Kitchen",
-      "Toilet",
-    ],
-
+    facilities: ["Kitchen", "Toilet"],
     reviews: [],
+    totalReviews: 15,
   },
 ];
 
-/*
- * Price bounds are derived from the actual lodge data.
- * Lodges without a numeric price are ignored.
- *
- * Current data therefore determines the range automatically.
- */
-const lodgePrices = lodges
-  .map((lodge) => lodge.price)
-  .filter((price) => typeof price === "number" && Number.isFinite(price));
-
-export const priceRangeConfig = {
-  min: Math.min(...lodgePrices),
-  max: Math.max(...lodgePrices),
-};
-
-// Section metadata — drives the home page loop.
+// Section metadata
 export const lodgeSections = [
   {
     key: "popular",
