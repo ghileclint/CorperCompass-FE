@@ -3,8 +3,9 @@ import { Navigate, Route, Routes } from "react-router-dom";
 
 import NavBar from "./components/NavBar";
 import ComingSoon from "./components/ComingSoon";
-import Home from "./pages/content-creation/Home";
-import PostDetail from "./pages/content-creation/PostDetail";
+import Home from "./pages/content-creation-posting/Home";
+import PostDetail from "./pages/content-creation-posting/PostDetail";
+
 
 import Onboarding from "./pages/onboarding/Onboarding";
 import NyscDetails from "./pages/signup/NyscDetails";
