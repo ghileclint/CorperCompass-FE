@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FiSend, FiHeart, FiCornerUpLeft, FiX, FiChevronDown } from "react-icons/fi";
-import styles from "../css/commentSection.module.css";
+import styles from "./css/commentSection.module.css";
 
 export default function CommentSection({ comments, onAdd }) {
   const [text, setText] = useState("");

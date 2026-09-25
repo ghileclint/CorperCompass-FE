@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FiSliders, FiSearch, FiPlus, FiChevronDown } from "react-icons/fi";
-import styles from "../css/home.module.css";
+import styles from "./css/home.module.css";
 import PostCard from "./PostCard";
 import CreatePost from "./CreatePost";
 

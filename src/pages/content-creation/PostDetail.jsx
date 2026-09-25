@@ -5,7 +5,7 @@ import {
   FiCheckCircle, FiMoreHorizontal, FiEdit3, FiTrash2, FiFlag
 } from "react-icons/fi";
 import { HiOutlineBuildingStorefront } from "react-icons/hi2";
-import styles from "../css/postDetail.module.css";
+import styles from "./css/postDetail.module.css";
 import CommentSection from "./CommentSection";
 import ShareMenu from "./ShareMenu";
 import EditPostModal from "./EditPostModal";

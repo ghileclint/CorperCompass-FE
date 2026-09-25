@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FiChevronDown } from "react-icons/fi";
-import styles from "../css/audienceDropdown.module.css";
+import styles from "./css/audienceDropdown.module.css";
 
 const OPTIONS = ["Everyone", "Followers", "Only Me"];
 

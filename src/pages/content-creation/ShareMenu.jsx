@@ -1,5 +1,5 @@
 import { FiCopy, FiSend, FiExternalLink } from "react-icons/fi";
-import styles from "../css/shareMenu.module.css";
+import styles from "./css/shareMenu.module.css";
 
 export default function ShareMenu({ post, onClose }) {
   const copy = async () => {

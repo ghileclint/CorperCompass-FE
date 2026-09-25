@@ -1,25 +1,26 @@
 import { useEffect, useRef, useState } from "react";
 import { FiImage, FiX, FiPlus } from "react-icons/fi";
-import styles from "../css/createPost.module.css";
+import styles from "./css/editPostModal.module.css";
 import AudienceDropdown from "./AudienceDropdown";
-
-const CURRENT_USER = {
-  id: "current-user",
-  name: "Myles",
-  avatar: "https://i.pravatar.cc/160?img=12",
-  verified: true,
-  vendor: true
-};
 
 const MAX_IMAGES = 3;
 
-export default function CreatePost({ onClose, onCreate }) {
-  const [audience, setAudience] = useState("Everyone");
-  const [content, setContent] = useState("");
-  const [images, setImages] = useState([]);
+function toImageList(image) {
+  if (!image) return [];
+  return Array.isArray(image) ? image.filter(Boolean) : [image];
+}
+
+export default function EditPostModal({ post, onClose, onSave, onRequestDelete }) {
+  const [audience, setAudience] = useState(post.audience || "Everyone");
+  const [content, setContent] = useState(post.content);
+  const [images, setImages] = useState(() => toImageList(post.image));
   const inputRef = useRef(null);
 
-  useEffect(() => () => images.forEach(img => URL.revokeObjectURL(img.preview)), [images]);
+  const newObjectUrls = useRef(new Set());
+
+  useEffect(() => () => {
+    newObjectUrls.current.forEach(url => URL.revokeObjectURL(url));
+  }, []);
 
   const selectImages = e => {
     const files = Array.from(e.target.files || []).filter(file => file.type.startsWith("image/"));
@@ -28,78 +29,71 @@ export default function CreatePost({ onClose, onCreate }) {
     const room = MAX_IMAGES - images.length;
     if (room <= 0) return;
 
-    const oversized = files.some(file => file.size > 8 * 1024 * 1024);
-    if (oversized) {
-      alert("Each image must be smaller than 8MB.");
-    }
-
     const accepted = files.filter(file => file.size <= 8 * 1024 * 1024).slice(0, room);
-    setImages(prev => [...prev, ...accepted.map(file => ({ file, preview: URL.createObjectURL(file) }))]);
+    const urls = accepted.map(file => {
+      const url = URL.createObjectURL(file);
+      newObjectUrls.current.add(url);
+      return url;
+    });
+    setImages(prev => [...prev, ...urls]);
     e.target.value = "";
   };
 
   const removeImage = index => {
-    setImages(prev => {
-      const target = prev[index];
-      if (target) URL.revokeObjectURL(target.preview);
-      return prev.filter((_, i) => i !== index);
-    });
+    setImages(prev => prev.filter((_, i) => i !== index));
   };
 
-  const canPost = content.trim().length > 0 || images.length > 0;
+  const hasChanges =
+    content.trim() !== (post.content || "").trim() ||
+    audience !== (post.audience || "Everyone") ||
+    JSON.stringify(images) !== JSON.stringify(toImageList(post.image));
 
-  const publish = () => {
-    if (!canPost) return;
-    onCreate({
-      id: crypto.randomUUID(),
-      user: CURRENT_USER,
-      audience,
-      content: content.trim(),
-      image: images.map(img => img.preview),
-      createdAt: "now",
-      likes: 0,
-      comments: [],
-      shares: 0,
-      liked: false,
-      saved: false,
-      owner: true
-    });
-    onClose();
+  const canSave = content.trim().length > 0 || images.length > 0;
+
+  const requestClose = () => {
+    if (hasChanges) {
+      onRequestDelete();
+    } else {
+      onClose();
+    }
+  };
+
+  const save = () => {
+    if (!canSave) return;
+    onSave({ audience, content: content.trim(), image: images });
   };
 
   return (
     <div className={styles.modalBackdrop}>
-      <section className={styles.modal} role="dialog" aria-modal="true" aria-labelledby="create-title">
+      <section className={styles.modal} role="dialog" aria-modal="true" aria-labelledby="edit-title">
         <div className={styles.modalHead}>
-          <h2 id="create-title">Make a post</h2>
+          <h2 id="edit-title">Make a post</h2>
           <div className={styles.modalHeadActions}>
-            <button className={styles.publishButton} disabled={!canPost} onClick={publish}>
+            <button className={styles.publishButton} disabled={!canSave} onClick={save}>
               Post
             </button>
-            <button className={styles.modalClose} onClick={onClose} aria-label="Close">
+            <button className={styles.modalClose} onClick={requestClose} aria-label="Close">
               <FiX />
             </button>
           </div>
         </div>
 
         <div className={styles.composerUser}>
-          <img src={CURRENT_USER.avatar} className={styles.smallAvatar} alt="" />
+          <img src={post.user.avatar} className={styles.smallAvatar} alt="" />
           <AudienceDropdown value={audience} onChange={setAudience} />
         </div>
 
         <textarea
-          autoFocus
           value={content}
           onChange={e => setContent(e.target.value.slice(0, 1000))}
-          placeholder="What's on your mind?"
           maxLength={1000}
         />
 
         {images.length > 0 && (
           <div className={styles.uploadPreviewList}>
-            {images.map((img, index) => (
-              <div className={styles.uploadPreview} key={img.preview}>
-                <img src={img.preview} alt="Selected preview" />
+            {images.map((src, index) => (
+              <div className={styles.uploadPreview} key={src + index}>
+                <img src={src} alt="Post attachment preview" />
                 <button onClick={() => removeImage(index)} aria-label="Remove image"><FiX /></button>
               </div>
             ))}

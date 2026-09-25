@@ -1,5 +1,5 @@
 import { FiTrash2 } from "react-icons/fi";
-import styles from "../css/deletePostModal.module.css";
+import styles from "./css/deletePostModal.module.css";
 
 export default function DeletePostModal({ onClose, onConfirm }) {
   return (

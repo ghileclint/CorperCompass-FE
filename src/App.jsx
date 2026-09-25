@@ -3,8 +3,8 @@ import { Navigate, Route, Routes } from "react-router-dom";
 
 import NavBar from "./components/NavBar";
 import ComingSoon from "./components/ComingSoon";
-import Home from "./components/Home";
-import PostDetail from "./components/PostDetail";
+import Home from "./pages/content-creation/Home";
+import PostDetail from "./pages/content-creation/PostDetail";
 
 import Onboarding from "./pages/onboarding/Onboarding";
 import NyscDetails from "./pages/signup/NyscDetails";

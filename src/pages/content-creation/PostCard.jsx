@@ -5,7 +5,7 @@ import {
   FiTrash2, FiFlag, FiBookmark, FiCheckCircle
 } from "react-icons/fi";
 import { HiOutlineBuildingStorefront } from "react-icons/hi2";
-import styles from "../css/postCard.module.css";
+import styles from "./css/postCard.module.css";
 import EditPostModal from "./EditPostModal";
 import DeletePostModal from "./DeletePostModal";
 import CommentSection from "./CommentSection";
