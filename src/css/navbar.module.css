@@ -1,84 +1,57 @@
 .navContainer {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #ffffff;
-  border-bottom: 1px solid var(--accent-color);
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
-}
-
-.logo {
-  text-transform: uppercase;
-  color: var(--primary-color);
-  font-weight: bold;
-  padding-left: 16px;
-}
-
-.navbar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  gap: 24px;
-  padding: 10px 20px;
-  flex-wrap: wrap;
+  background: #fff;
+  border-top: 1px solid var(--accent-color);
+  box-shadow: 0 -3px 12px rgba(0, 0, 0, 0.12);
+  padding: 8px 4px calc(8px + env(safe-area-inset-bottom, 0px));
 }
 
-.navbar a {
-  width: fit-content;
+.navContainer a {
+  flex: 1;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 5px;
+  gap: 4px;
+  min-width: 0;
+  padding: 6px 4px;
   text-decoration: none;
-  color: #000;
-  white-space: nowrap;
+  color: var(--accent-color);
+  font-size: 11px;
+  font-weight: 600;
+  transition: color 0.15s ease;
 }
 
-.icon {
-  font-size: 1.3rem;
-}
-
-.navbar a:hover {
-  color: var(--primary-color);
+.navContainer a:hover {
+  color: var(--secondary-color);
 }
 
 .active {
   color: var(--primary-color);
 }
 
-/* Aligned with index.css's #root breakpoint (1024px = desktop). Below
-   that, #root is at its narrower mobile/tablet width, so the nav must
-   stay in compact icon-only mode to avoid overflowing that container. */
+.icon {
+  font-size: 1.4rem;
+}
+
+.label {
+  line-height: 1;
+}
+
+/* Keep the navigation compact inside the narrower app layout. */
 @media (max-width: 1023px) {
-  .logo {
-    display: none;
-  }
-
   .navContainer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
     width: 100%;
-    border-top: 1px solid var(--accent-color);
-    border-bottom: none;
-    box-shadow: 0 -3px 12px rgba(0, 0, 0, 0.12);
-    z-index: 100;
   }
 
-  .navbar {
-    width: 100%;
-    font-size: 14px;
-    gap: 4px;
-    padding: 8px 4px;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: nowrap;
-  }
-
-  .navbar a {
-    flex-direction: column;
+  .navContainer a {
     flex: 1;
     min-width: 0;
   }
