@@ -1,3 +1,4 @@
+
 import { Routes, Route } from "react-router-dom";
 
 import Onboarding from "../pages/onboarding/Onboarding";
@@ -9,21 +10,22 @@ import UploadLetter from "../pages/signup/UploadLetter";
 import Review from "../pages/signup/Review";
 import AllSet from "../pages/signup/AllSet";
 
-import VendorsListPage from "../features/explore/vendors/pages/VendorsListPage";
-import SearchResultsPage from "../features/explore/vendors/pages/SearchResultsPage";
-import VendorProfilePage from "../features/explore/vendors/pages/VendorProfilePage";
-import LodgeSearchPage from "../features/explore/lodges/pages/LodgeSearchPage";
+import VendorsListPage from "../pages/vendors/VendorsListPage";
+import SearchResultsPage from "../pages/vendors/SearchResultsPage";
+import VendorProfilePage from "../pages/vendors/VendorProfilePage";
 
-import LodgeDirectoryPage from "../features/explore/lodges/pages/LodgeDirectoryPage";
-import LodgeProfilePage from "../features/explore/lodges/pages/LodgeProfilePage";
+import LodgeDirectoryPage from "../pages/lodges/LodgeDirectoryPage";
+import LodgeSearchPage from "../pages/lodges/LodgeSearchPage";
+import LodgeProfilePage from "../pages/lodges/LodgeProfilePage";
 
-import CultureGuidePage from "../features/explore/culture/pages/CultureGuidePage";
-import PhrasebookPage from "../features/explore/culture/pages/PhrasebookPage";
-import CustomsEtiquettePage from "../features/explore/culture/pages/CustomsEtiquettePage";
+import CultureGuidePage from "../pages/culture/CultureGuidePage";
+import PhrasebookPage from "../pages/culture/PhrasebookPage";
+import CustomsEtiquettePage from "../pages/culture/CustomsEtiquettePage";
 
 function AppRoutes() {
   return (
     <Routes>
+       
       {/* Onboarding / Authentication */}
       <Route path="/" element={<Onboarding />} />
       <Route path="/login" element={<Login />} />
@@ -35,14 +37,14 @@ function AppRoutes() {
       <Route path="/all-set" element={<AllSet />} />
 
       {/* Explore - Vendors */}
-      <Route path="/vendors" element={<VendorsListPage />} />
+      <Route path="/vendors" element={<VendorsListPage /> } />
       <Route path="/vendors/search" element={<SearchResultsPage />} />
       <Route path="/vendors/:id" element={<VendorProfilePage />} />
 
       {/* Explore - Lodges */}
       <Route path="/lodges" element={<LodgeDirectoryPage />} />
-<Route path="/lodges/search" element={<LodgeSearchPage />} />
-<Route path="/lodges/:id" element={<LodgeProfilePage />} />
+      <Route path="/lodges/search" element={<LodgeSearchPage />} />
+      <Route path="/lodges/:id" element={<LodgeProfilePage />} />
 
       {/* Explore - Culture */}
       <Route path="/culture" element={<CultureGuidePage />} />
@@ -53,3 +55,4 @@ function AppRoutes() {
 }
 
 export default AppRoutes;
+

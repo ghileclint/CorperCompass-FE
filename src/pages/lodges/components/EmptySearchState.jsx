@@ -1,6 +1,6 @@
 // src/features/explore/vendors/components/EmptySearchState.jsx
 import { FiSearch } from "react-icons/fi";
-import styles from "./EmptySearchState.module.css";
+import styles from "../../vendors/css/EmptySearchState.module.css";
 
 export default function EmptySearchState({
   onClearFilters,

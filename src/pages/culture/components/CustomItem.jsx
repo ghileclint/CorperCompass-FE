@@ -1,4 +1,4 @@
-import styles from './CustomItem.module.css';
+import styles from "../css/CustomItem.module.css";
 
 /**
  * CustomItem

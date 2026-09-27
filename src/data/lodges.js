@@ -7,8 +7,8 @@ const lodgeImage = (number) => `/images/lodges/lodge-${number}.png`;
 
 const lodgeGallery = (number) => [
   lodgeImage(number),
-  lodgeImage(number),
-  lodgeImage(number),
+  lodgeImage(((number) % 11) + 1),
+  lodgeImage(((number + 1) % 11) + 1),
 ];
 
 export const lodgeTypes = ["All", "Self-contain", "Room", "Near camp"];

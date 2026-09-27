@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import styles from './CustomsEtiquettePage.module.css';
-import CustomItem from '../components/CustomItem';
-import { getCustoms } from '../../../../api/culture.api';
+import styles from "./css/CustomsEtiquettePage.module.css";
+import CustomItem from "./components/CustomItem";
+import { getCustoms } from "../../api/culture.api";
 
 /**
  * CustomsEtiquettePage

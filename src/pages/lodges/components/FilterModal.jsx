@@ -1,8 +1,8 @@
 // src/features/explore/lodges/components/FilterModal.jsx
 import { useEffect, useState } from "react";
 import { FiX, FiChevronDown } from "react-icons/fi";
-import { fetchLodgeFilterOptions } from "../../../../api/lodges.api";
-import styles from "./FilterModal.module.css";
+import { fetchLodgeFilterOptions } from "../../../api/lodges.api";
+import styles from "../css/FilterModal.module.css";
 
 const AMENITIES_PREVIEW_COUNT = 4;
 

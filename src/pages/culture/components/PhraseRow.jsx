@@ -1,4 +1,4 @@
-import styles from './PhraseRow.module.css';
+import styles from "../css/PhraseRow.module.css";
 
 /**
  * PhraseRow

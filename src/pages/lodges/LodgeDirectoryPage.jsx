@@ -2,10 +2,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FiArrowLeft, FiSearch, FiSliders, FiChevronRight } from "react-icons/fi";
-import { fetchLodgeSections, filterLodges, fetchLodgeFilterOptions } from "../../../../api/lodges.api";
-import LodgeCard from "../components/LodgeCard";
-import FilterModal from "../components/FilterModal";
-import styles from "./LodgeDirectoryPage.module.css";
+import { fetchLodgeSections, filterLodges, fetchLodgeFilterOptions } from "../../api/lodges.api";
+import LodgeCard from "./components/LodgeCard";
+import FilterModal from "./components/FilterModal";
+import styles from "./css/LodgeDirectoryPage.module.css";
 
 export default function LodgeDirectoryPage() {
   const navigate = useNavigate();

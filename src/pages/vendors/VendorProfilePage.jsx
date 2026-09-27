@@ -14,10 +14,10 @@ import {
 import {
   fetchVendorById,
   fetchMoreVendors,
-} from "../../../../api/vendors.api";
+} from "../../api/vendors.api";
 
-import ShareModal from "../components/ShareModal";
-import styles from "./VendorProfilePage.module.css";
+import ShareModal from "./components/ShareModal";
+import styles from "./css/VendorProfilePage.module.css";
 
 export default function VendorProfilePage() {
   const { id: vendorId } = useParams();

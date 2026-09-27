@@ -2,11 +2,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { FiArrowLeft, FiSliders } from "react-icons/fi";
-import { fetchVendors, fetchVendorsByCategory } from "../../../../api/vendors.api";
-import { categories } from "../../../../data/vendors";
-import SearchBar from "../components/SearchBar";
-import VendorCard from "../components/VendorCard";
-import styles from "./VendorsListPage.module.css";
+import { fetchVendors, fetchVendorsByCategory } from "../../api/vendors.api";
+import { categories } from "../../data/vendors";
+import SearchBar from "./components/SearchBar";
+import VendorCard from "./components/VendorCard";
+import styles from "./css/VendorsListPage.module.css";
 
 // TODO: swap this local <header> for the team's shared <Navbar />
 // from src/components/Navbar once its prop API is confirmed.

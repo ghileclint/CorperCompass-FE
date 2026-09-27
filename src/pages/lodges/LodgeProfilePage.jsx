@@ -13,9 +13,9 @@ import {
 import {
   fetchLodgeById,
   fetchMoreLodges,
-} from "../../../../api/lodges.api";
-import LodgeCard from "../components/LodgeCard";
-import styles from "./LodgeProfilePage.module.css";
+} from "../../api/lodges.api";
+import LodgeCard from "./components/LodgeCard";
+import styles from "./css/LodgeProfilePage.module.css";
 
 export default function LodgeProfilePage() {
   const { id: lodgeId } = useParams();

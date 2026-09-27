@@ -1,7 +1,7 @@
 // src/features/explore/vendors/components/SearchBar.jsx
 import { useState } from "react";
 import { FiSearch } from "react-icons/fi";
-import styles from "./SearchBar.module.css";
+import styles from "../css/SearchBar.module.css";
 
 export default function SearchBar({ onSearch, initialQuery = "" }) {
   const [query, setQuery] = useState(initialQuery);

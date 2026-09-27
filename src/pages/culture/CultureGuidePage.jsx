@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styles from './CultureGuidePage.module.css';
-import StateSelector from '../components/StateSelector';
-import WelcomeBanner from '../components/WelcomeBanner';
-import PhraseRow from '../components/PhraseRow';
-import CustomItem from '../components/CustomItem';
-import { getStates, getPhrases, getCustoms } from '../../../../api/culture.api';
+import styles from "./css/CultureGuidePage.module.css";
+import StateSelector from "./components/StateSelector";
+import WelcomeBanner from "./components/WelcomeBanner";
+import PhraseRow from "./components/PhraseRow";
+import CustomItem from "./components/CustomItem";
+import { getStates, getPhrases, getCustoms } from '../../api/culture.api';
 
 const TABS = [
   { id: 'phrasebook', label: 'Phrasebook' },

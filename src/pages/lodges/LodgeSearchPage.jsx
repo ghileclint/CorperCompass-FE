@@ -2,10 +2,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FiX } from "react-icons/fi";
-import { fetchLodges, searchLodges } from "../../../../api/lodges.api";
-import LodgeSearchRow from "../components/LodgeSearchRow";
-import EmptySearchState from "../../vendors/components/EmptySearchState";
-import styles from "./LodgeSearchPage.module.css";
+import { fetchLodges, searchLodges } from "../../api/lodges.api";
+import LodgeSearchRow from "./components/LodgeSearchRow";
+import EmptySearchState from "./components/EmptySearchState";
+import styles from "./css/LodgeSearchPage.module.css";
 
 export default function LodgeSearchPage() {
   const navigate = useNavigate();

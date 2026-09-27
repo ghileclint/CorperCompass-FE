@@ -1,6 +1,6 @@
 // src/features/explore/lodges/components/LodgeSearchRow.jsx
 import { FiHome } from "react-icons/fi";
-import styles from "./LodgeSearchRow.module.css";
+import styles from "../css/LodgeSearchRow.module.css";
 
 export default function LodgeSearchRow({ lodge, onSelect }) {
   return (

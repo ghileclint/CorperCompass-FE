@@ -2,11 +2,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { FiArrowLeft } from "react-icons/fi";
-import { searchVendors, fetchVendors } from "../../../../api/vendors.api";
-import SearchBar from "../components/SearchBar";
-import VendorCard from "../components/VendorCard";
-import EmptySearchState from "../components/EmptySearchState";
-import styles from "./VendorsListPage.module.css";
+import { searchVendors, fetchVendors } from "../../api/vendors.api";
+import SearchBar from "./components/SearchBar";
+import VendorCard from "./components/VendorCard";
+import EmptySearchState from "./components/EmptySearchState";
+import styles from "./css/VendorsListPage.module.css";
 
 export default function SearchResultsPage() {
   const navigate = useNavigate();

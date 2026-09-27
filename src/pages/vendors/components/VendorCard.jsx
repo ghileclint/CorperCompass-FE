@@ -1,6 +1,6 @@
 // src/features/explore/vendors/components/VendorCard.jsx
 import { FiMapPin } from "react-icons/fi";
-import styles from "./VendorCard.module.css";
+import styles from "../css/VendorCard.module.css";
 
 // TODO: replace this raw <button> with the team's shared <Button />
 // from src/components/Button once its prop API is confirmed

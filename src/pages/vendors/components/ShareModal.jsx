@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { FiX, FiLink, FiMail, FiMoreHorizontal, FiMessageCircle, FiCheck } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
-import styles from "./ShareModal.module.css";
+import styles from "../css/ShareModal.module.css";
 
 export default function ShareModal({ vendorName, onCancel, onSelect }) {
   const [copied, setCopied] = useState(false);

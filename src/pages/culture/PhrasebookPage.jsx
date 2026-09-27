@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import styles from './PhrasebookPage.module.css';
-import PhraseRow from '../components/PhraseRow';
-import { getPhrases, getPhraseCategories } from '../../../../api/culture.api';
+import styles from "./css/PhrasebookPage.module.css";;
+import PhraseRow from "./components/PhraseRow";
+import { getPhrases, getPhraseCategories } from '../../api/culture.api';
 
 /**
  * PhrasebookPage

@@ -1,9 +1,10 @@
 // src/features/explore/lodges/components/LodgeCard.jsx
 import { useState } from "react";
 import { FiHeart, FiStar } from "react-icons/fi";
-import styles from "./LodgeCard.module.css";
+import styles from "../css/LodgeCard.module.css";
 
 export default function LodgeCard({ lodge, onClick }) {
+
   const [saved, setSaved] = useState(false);
 
   return (

@@ -1,4 +1,4 @@
-import styles from './WelcomeBanner.module.css';
+import styles from "../css/WelcomeBanner.module.css";
 
 /**
  * WelcomeBanner
