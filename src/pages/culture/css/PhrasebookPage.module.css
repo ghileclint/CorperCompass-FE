@@ -1,0 +1,74 @@
+.screen {
+  min-height: 100vh;
+  background: var(--color-background, #fff);
+  font-family: var(--font-body, system-ui, sans-serif);
+  color: var(--color-text-primary, #1a1a1a);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--color-border, #eee);
+}
+
+.backButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: none;
+  border: none;
+  color: var(--color-brand-primary, #1f5c4d);
+  cursor: pointer;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+  color: var(--color-brand-primary, #1f5c4d);
+}
+
+.body {
+  padding: 16px;
+}
+
+.categoryTabs {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  margin-bottom: 16px;
+}
+
+.categoryTab {
+  flex-shrink: 0;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--color-border, #ddd);
+  background: #fff;
+  font-size: 13px;
+  color: var(--color-text-primary, #1a1a1a);
+  cursor: pointer;
+}
+
+.categoryTabActive {
+  background: var(--color-brand-primary, #1f5c4d);
+  border-color: var(--color-brand-primary, #1f5c4d);
+  color: #fff;
+}
+
+.sectionTitle {
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0 0 10px;
+}
+
+.stateMessage {
+  text-align: center;
+  color: var(--color-text-muted, #767676);
+  font-size: 13px;
+  padding: 24px 0;
+}

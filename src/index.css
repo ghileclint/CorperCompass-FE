@@ -4,6 +4,11 @@
   box-sizing: border-box;
 }
 
+html,
+body {
+  min-height: 100%;
+}
+
 :root {
   --secondary-color: #0f6e56;
   --primary-color: #085041;
@@ -24,4 +29,17 @@ body {
     "Open Sans",
     "Helvetica Neue",
     sans-serif;
+  background: #ffffff;
+  overflow-x: hidden;
+}
+
+/* Always fills the real screen width, on every device — no gray bars,
+   no artificial "desktop card". The mobile design (from Figma) is the
+   only design that exists, so it fills whatever space it's given
+   instead of being boxed into a fixed-width card. */
+#root {
+  width: 100%;
+  min-height: 100vh;
+  background: #ffffff;
+  overflow-x: hidden;
 }

@@ -3,10 +3,10 @@
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 50;
+  z-index: 100;
   display: flex;
-  align-items: center;
   justify-content: space-around;
+  align-items: center;
   background: #fff;
   border-top: 1px solid var(--accent-color);
   box-shadow: 0 -3px 12px rgba(0, 0, 0, 0.12);
@@ -20,6 +20,7 @@
   align-items: center;
   justify-content: center;
   gap: 4px;
+  min-width: 0;
   padding: 6px 4px;
   text-decoration: none;
   color: var(--accent-color);
@@ -42,4 +43,16 @@
 
 .label {
   line-height: 1;
+}
+
+/* Keep the navigation compact inside the narrower app layout. */
+@media (max-width: 1023px) {
+  .navContainer {
+    width: 100%;
+  }
+
+  .navContainer a {
+    flex: 1;
+    min-width: 0;
+  }
 }
