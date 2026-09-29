@@ -8,7 +8,7 @@ import {
   FiPieChart,
 } from "react-icons/fi";
 
-import "./pages/dashboard-budget/dashboard-budget-css/budgetestimator.css";
+import "./dashboard-budget-css/budgetestimator.css";
 
 const BudgetEstimator = () => {
   const navigate = useNavigate();
