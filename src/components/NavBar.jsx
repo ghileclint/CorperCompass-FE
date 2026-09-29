@@ -25,6 +25,8 @@ const NavBar = () => {
         </NavLink>
       ))}
     </nav>
+
+    
   );
 };
 

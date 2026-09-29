@@ -5,6 +5,8 @@ import NavBar from "./components/NavBar";
 import ComingSoon from "./components/ComingSoon";
 import Home from "./pages/content-creation/Home";
 import PostDetail from "./pages/content-creation/PostDetail";
+import Dashboard  from "./src/pages/dashboard-budget";
+import BudgetEstimator from "./src/pages/dashboard-budget";
 
 
 import Onboarding from "./pages/onboarding/Onboarding";
@@ -130,6 +132,13 @@ function App() {
         <Route path="/all-set" element={<AllSet />} />
 
         <Route path="*" element={<Navigate to="/" replace />} />
+
+        {/* -----dashboard budget routing */}
+        <Route path="/dashboard" element = {<Dashboard/>}/>
+        <Route path="/budget" element = {<BudgetEstimator/>}/>
+        
+
+
       </Routes>
 
       <NavBar />
