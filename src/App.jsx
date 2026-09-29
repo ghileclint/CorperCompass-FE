@@ -5,8 +5,8 @@ import NavBar from "./components/NavBar";
 import ComingSoon from "./components/ComingSoon";
 import Home from "./pages/content-creation/Home";
 import PostDetail from "./pages/content-creation/PostDetail";
-import Dashboard  from "./src/pages/dashboard-budget";
-import BudgetEstimator from "./src/pages/dashboard-budget";
+import Dashboard  from "./pages/dashboard-budget/dashboard";
+import BudgetEstimator from "./pages/dashboard-budget/budgetestimator";
 
 
 import Onboarding from "./pages/onboarding/Onboarding";
@@ -134,7 +134,7 @@ function App() {
         <Route path="*" element={<Navigate to="/" replace />} />
 
         {/* -----dashboard budget routing */}
-        <Route path="/dashboard" element = {<Dashboard/>}/>
+        <Route path="/" element = {<Dashboard/>}/>
         <Route path="/budget" element = {<BudgetEstimator/>}/>
         
 

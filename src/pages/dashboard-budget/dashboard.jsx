@@ -17,8 +17,8 @@ import {
   FiMessageCircle,
 } from "react-icons/fi";
 
-import "../css/dashboard.css";
-import  "../css/budgetestimator.css"
+import "./pages/dashboard-budget/dashboard-budget-css/dashboard.css";
+import  "./pages/dashboard-budget/dashboard-budget-css/budgetestimator.css"
 
 const Dashboard = () => {
   const [showExpenseForm, setShowExpenseForm] = 
