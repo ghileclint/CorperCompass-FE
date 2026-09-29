@@ -1,12 +1,13 @@
 import styles from "../css/button.module.css";
 
-const Button = ({ text, onclick, filled }) => {
+const Button = ({ text, icon, onClick, filled }) => {
   return (
     <button
       className={filled ? styles.btnFilled : styles.btnOutlined}
-      onClick={onclick}
+      onClick={onClick}
     >
       {text}
+      {icon}
     </button>
   );
 };
