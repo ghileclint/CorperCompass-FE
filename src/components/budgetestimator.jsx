@@ -622,17 +622,6 @@ const totalSpent = expenses.reduce(
             
             setIsEditingBudget(false);
 
-            // if (
-            //   !editedBudget ||
-            //   Number(editedBudget) <= 0
-            // ) {
-            //   alert("Please enter a valid budget.");
-            //   return;
-            // }
-
-            // setBudgetAmount(Number(editedBudget));
-            // setIsEditingBudget(false);
-
           }}
         >
           Save budget
