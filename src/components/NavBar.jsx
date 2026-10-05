@@ -25,8 +25,11 @@ const NavBar = () => {
         </NavLink>
       ))}
     </nav>
+<<<<<<< Updated upstream
 
     
+=======
+>>>>>>> Stashed changes
   );
 };
 

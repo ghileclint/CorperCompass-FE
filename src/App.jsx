@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import { useMemo, useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 
@@ -8,6 +9,13 @@ import PostDetail from "./pages/content-creation/PostDetail";
 // import Dashboard  from "./pages/dashboard-budget/dashboard";
 // import BudgetEstimator from "./pages/dashboard-budget/budgetestimator";
 
+=======
+import { Navigate, Route, Routes } from "react-router-dom";
+
+import NavBar from "./components/NavBar";
+import Home from "./pages/content-creation/Home";
+import PostDetail from "./pages/content-creation/PostDetail";
+>>>>>>> Stashed changes
 
 import Onboarding from "./pages/onboarding/Onboarding";
 import NyscDetails from "./pages/signup/NyscDetails";
@@ -18,6 +26,7 @@ import SplashScreen from "./pages/onboarding/SplashScreen";
 import CreateAccount from "./pages/signup/CreateAccount";
 import AllSet from "./pages/signup/AllSet";
 
+<<<<<<< Updated upstream
 const initialPosts = [
   {
     id: "1",
@@ -106,6 +115,12 @@ function App() {
     }),
     []
   );
+=======
+import usePosts from "./hooks/usePosts";
+
+function App() {
+  const { posts, api } = usePosts();
+>>>>>>> Stashed changes
 
   return (
     <>
@@ -116,11 +131,14 @@ function App() {
           element={<PostDetail posts={posts} api={api} />}
         />
 
+<<<<<<< Updated upstream
         <Route path="/explore" element={<ComingSoon title="Explore" />} />
         <Route path="/market" element={<ComingSoon title="Market" />} />
         <Route path="/journey" element={<ComingSoon title="Journey" />} />
         <Route path="/inbox" element={<ComingSoon title="Inbox" />} />
 
+=======
+>>>>>>> Stashed changes
         {/* Existing onboarding/signup pages */}
         <Route path="/onboarding" element={<Onboarding />} />
         <Route path="/nysc-details" element={<NyscDetails />} />
@@ -132,6 +150,7 @@ function App() {
         <Route path="/all-set" element={<AllSet />} />
 
         <Route path="*" element={<Navigate to="/" replace />} />
+<<<<<<< Updated upstream
 
         {/* -----dashboard budget routing */}
 
@@ -140,6 +159,8 @@ function App() {
          */}
 
 
+=======
+>>>>>>> Stashed changes
       </Routes>
 
       <NavBar />
