@@ -1,0 +1,87 @@
+.screen {
+  font-family: var(--font-body, system-ui, sans-serif);
+  color: var(--color-text-primary, #1a1a1a);
+  background: var(--color-background, #fff);
+  min-height: 100vh;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--color-border, #eee);
+}
+
+.backButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: none;
+  border: none;
+  color: var(--color-brand-primary, #1f5c4d);
+  cursor: pointer;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+  color: var(--color-brand-primary, #1f5c4d);
+}
+
+.body {
+  padding: 16px;
+}
+
+.tabs {
+  display: flex;
+  gap: 24px;
+  border-bottom: 1px solid var(--color-border, #eee);
+  margin-bottom: 16px;
+}
+
+.tab {
+  padding: 10px 0;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-muted, #767676);
+  cursor: pointer;
+}
+
+.tabActive {
+  color: var(--color-brand-primary, #1f5c4d);
+  border-bottom-color: var(--color-brand-primary, #1f5c4d);
+}
+
+.sectionTitle {
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0 0 10px;
+}
+
+.seeAllLink {
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin-top: 12px;
+  padding: 8px;
+  background: none;
+  border: none;
+  color: var(--color-brand-primary, #1f5c4d);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.stateMessage {
+  text-align: center;
+  color: var(--color-text-muted, #767676);
+  font-size: 13px;
+  padding: 24px 0;
+}

@@ -1,0 +1,46 @@
+.banner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--color-brand-primary, #1f5c4d);
+  border-radius: 14px;
+  padding: 16px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.textBlock {
+  position: relative;
+  z-index: 1;
+}
+
+.title {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0 0 4px;
+}
+
+.text {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 0;
+  max-width: 220px;
+}
+
+.watermark {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.55);
+}
